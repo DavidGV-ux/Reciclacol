@@ -28,10 +28,10 @@ public class App extends Application {
         inicioController.setControlador(controlador);
         
         // Configurar y mostrar la escena
-        Scene scene = new Scene(root, 1440, 1024);
+        Scene scene = new Scene(root, 800, 400);
         stage.setScene(scene);
         stage.setTitle("Sistema de Reciclaje");
-        stage.setResizable(false);
+        // stage.setResizable(false);
         stage.show();
     }
 

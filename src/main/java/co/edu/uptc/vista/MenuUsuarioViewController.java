@@ -83,7 +83,7 @@ public class MenuUsuarioViewController {
                 InicioViewController controller = loader.getController();
                 controller.setControlador(controlador);
                 
-                javafx.scene.Scene scene = new javafx.scene.Scene(root, 1440, 1024);
+                javafx.scene.Scene scene = new javafx.scene.Scene(root, 800, 400);
                 Stage stage = (Stage) btnInicio.getScene().getWindow();
                 stage.setScene(scene);
                 stage.setTitle("Inicio");

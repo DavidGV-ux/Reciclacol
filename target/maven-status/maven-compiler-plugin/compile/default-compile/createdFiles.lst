@@ -1,0 +1,16 @@
+co\edu\uptc\vista\InicioViewController.class
+co\edu\uptc\vista\GenerarReporteViewController.class
+co\edu\uptc\vista\RecuperarContrasenaViewController.class
+co\edu\uptc\vista\InicioSesionViewController.class
+co\edu\uptc\vista\RegistrarResiduoController.class
+co\edu\uptc\vista\ListarPuntosController$ResiduoRow.class
+co\edu\uptc\vista\ListarResiduosController$ResiduoRow.class
+co\edu\uptc\vista\RegistroViewController.class
+co\edu\uptc\vista\MenuUsuarioViewController.class
+co\edu\uptc\vista\ListarResiduosController.class
+co\edu\uptc\util\VerificationCodeGenerator.class
+co\edu\uptc\vista\ConsolaVista.class
+co\edu\uptc\util\ValidadorResiduo.class
+co\edu\uptc\vista\ListarPuntosController.class
+co\edu\uptc\util\ValidadorEntrada.class
+co\edu\uptc\servicio\ReporteServicio.class
