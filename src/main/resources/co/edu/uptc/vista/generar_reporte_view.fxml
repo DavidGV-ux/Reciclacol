@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="36"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uptc.vista.GenerarReporteViewController"
+      alignment="CENTER"
+      prefWidth="1440"
+      prefHeight="1024"
+      style="-fx-background-color: white;">
+    <padding>
+        <Insets top="60" right="180" bottom="60" left="180"/>
+    </padding>
+
+    <Label text="¡Bienvenido al Sistema de Generar Reporte!"
+           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
+
+    <HBox alignment="CENTER" spacing="60">
+        <VBox spacing="24" alignment="CENTER">
+            <Button fx:id="btnGenerar" text="Generar"
+                    minWidth="140" minHeight="40"
+                    style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #81c784; -fx-text-fill: #1b5e20; -fx-font-weight: bold;"/>
+            <Button fx:id="btnDescargar" text="Descargar"
+                    minWidth="140" minHeight="40"
+                    style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #fff176; -fx-text-fill: #795548; -fx-font-weight: bold;"/>
+        </VBox>
+        <ScrollPane fx:id="scrollPreview"
+                    minWidth="420" minHeight="320" prefWidth="480" prefHeight="480"
+                    maxWidth="520" maxHeight="520"
+                    style="-fx-border-color: #388e3c; -fx-border-width: 2; -fx-background-radius: 12; -fx-border-radius: 12;">
+            <content>
+                <ImageView fx:id="imgPreview"
+                           preserveRatio="true"
+                           fitWidth="540"
+                           style="-fx-effect: dropshadow(gaussian, #a5d6a7, 10, 0.2, 0, 2);"/>
+            </content>
+        </ScrollPane>
+    </HBox>
+
+    <Label fx:id="lblMensaje"
+           style="-fx-text-fill: green; -fx-font-size: 20px;"/>
+</VBox>

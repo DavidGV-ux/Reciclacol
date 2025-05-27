@@ -1,0 +1,146 @@
+{
+  "888888": {
+    "primerNombre": "Gomita Coco",
+    "segundoNombre": "Pato",
+    "primerApellido": "Ramirez",
+    "segundoApellido": "Gaitan",
+    "identificacion": "888888",
+    "contrasena": "888888",
+    "direccion": "cllll",
+    "correo": "gomitap@gmail.com",
+    "telefono": 1234567,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 12.0,
+        "fechaEntrega": "may. 21, 2025"
+      }
+    ],
+    "puntosEcologicos": 120
+  },
+  "111111": {
+    "primerNombre": "Copito",
+    "segundoNombre": "Coco",
+    "primerApellido": "Galvis",
+    "identificacion": "111111",
+    "contrasena": "111111",
+    "direccion": "111111",
+    "correo": "copito @ gmail.com",
+    "telefono": 123456,
+    "residuos": [],
+    "puntosEcologicos": 0
+  },
+  "12345": {
+    "primerNombre": "paco",
+    "primerApellido": "Lindo",
+    "identificacion": "12345",
+    "contrasena": "12345",
+    "direccion": "cl 111",
+    "correo": "paco@gmail.com",
+    "telefono": 12345,
+    "residuos": [],
+    "puntosEcologicos": 0
+  },
+  "999999": {
+    "primerNombre": "Juan",
+    "segundoNombre": "Hugo",
+    "primerApellido": "Ramirez",
+    "segundoApellido": "Cardona",
+    "identificacion": "999999",
+    "contrasena": "999999",
+    "direccion": "",
+    "correo": "mis@gmail.com",
+    "telefono": 12345678,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 12.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Vidrio",
+        "peso": 18.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Cartón",
+        "peso": 20.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Metal",
+        "peso": 19.0,
+        "fechaEntrega": "may. 21, 2025"
+      }
+    ],
+    "puntosEcologicos": 690
+  },
+  "1234567890": {
+    "primerNombre": "Alejandra",
+    "primerApellido": "Rairán",
+    "segundoApellido": "Mendivelso",
+    "identificacion": "1234567890",
+    "contrasena": "maxi",
+    "direccion": "",
+    "correo": "alejandra@gmail.com",
+    "telefono": 30000000,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 1000.0,
+        "fechaEntrega": "may. 21, 2025"
+      }
+    ],
+    "puntosEcologicos": 10000
+  },
+  "1054282604": {
+    "primerNombre": "Bambi",
+    "primerApellido": "Mendivelso",
+    "identificacion": "1054282604",
+    "contrasena": "12345678",
+    "direccion": "",
+    "correo": "mia007332@gmail.com",
+    "telefono": 122222,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 11.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Vidrio",
+        "peso": 22.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Metal",
+        "peso": 33.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Cartón",
+        "peso": 5.0,
+        "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 12.0,
+        "fechaEntrega": "may. 25, 2025"
+      }
+    ],
+    "puntosEcologicos": 830
+  },
+  "1234567888": {
+    "primerNombre": "Aleja",
+    "segundoNombre": "Caracas",
+    "primerApellido": "Galvis",
+    "segundoApellido": "Sánchez",
+    "identificacion": "1234567888",
+    "contrasena": "teamoGomi",
+    "direccion": "",
+    "correo": "alejandramendivelso33@gmail.com",
+    "telefono": 3027773,
+    "residuos": [],
+    "puntosEcologicos": 0
+  }
+}

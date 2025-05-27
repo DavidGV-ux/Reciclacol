@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uptc.vista.ListarResiduosController"
+      alignment="CENTER"
+      spacing="32"
+      prefWidth="1440"
+      prefHeight="1024"
+      style="-fx-background-color: white;">
+    <padding>
+        <Insets top="40" right="80" bottom="40" left="80"/>
+    </padding>
+
+    <Label text="¡Observa el excelente trabajo que has hecho!"
+           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
+
+    <TableView fx:id="tablaResiduos"
+               prefHeight="540"
+               prefWidth="800"
+               style="-fx-font-size: 22px;">
+        <columns>
+            <TableColumn fx:id="colTipo" text="Tipo de residuo" prefWidth="320"/>
+            <TableColumn fx:id="colCantidad" text="Cantidad (kg)" prefWidth="160"/>
+            <TableColumn fx:id="colFecha" text="Fecha" prefWidth="220"/>
+        </columns>
+    </TableView>
+
+    <HBox spacing="80" alignment="CENTER">
+        <Label fx:id="lblResumenPuntos"
+               text="Resumen: Puntos: xx"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+        <Label fx:id="lblResumenCantidad"
+               text="Cantidad reciclada: xx kg"
+               style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+    </HBox>
+
+    <Button fx:id="btnCerrar"
+            text="Cerrar lista"
+            minWidth="240"
+            minHeight="54"
+            style="-fx-font-size: 24px; -fx-background-radius: 8; -fx-background-color: #81c784; -fx-text-fill: #1b5e20; -fx-font-weight: bold;"/>
+
+    <Label fx:id="lblMensaje"
+           style="-fx-text-fill: red; -fx-font-size: 20px;"/>
+</VBox>

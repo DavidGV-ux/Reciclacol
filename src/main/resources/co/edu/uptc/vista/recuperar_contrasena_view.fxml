@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="580" prefWidth="1000"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uptc.vista.RecuperarContrasenaViewController"
+            stylesheets="@../Estilos/RegistroU.css">
+
+    <top>
+        <Label text="Recuperar Contraseña" styleClass="titulo" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="20" />
+            </BorderPane.margin>
+        </Label>
+    </top>
+    <left>
+        <VBox prefWidth="300" spacing="20" style="-fx-background-color: white;">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            <HBox alignment="TOP_LEFT" spacing="10">
+                <Button fx:id="btnInicio" styleClass="boton-circular">
+                    <graphic>
+                        <Label text="✖" styleClass="icono-cerrar"/>
+                    </graphic>
+                </Button>
+                <Label text="Inicio" styleClass="texto-volver"/>
+            </HBox>
+        </VBox>
+    </left>
+    <center>
+        <VBox alignment="CENTER" spacing="24" style="-fx-background-color: white;">
+            <padding>
+                <Insets top="20" right="40" bottom="20" left="40"/>
+            </padding>
+            
+            <!-- Panel para ID y Enviar -->
+            <HBox fx:id="panelEnviarCodigo" spacing="16" alignment="CENTER_LEFT">
+                <Label text="Id:" minWidth="150" style="-fx-font-size: 18px;"/>
+                <TextField fx:id="txtCorreo" prefWidth="300" styleClass="campo-texto"/>
+                <Button fx:id="btnEnviar" text="Enviar" minWidth="100" styleClass="boton-principal"/>
+            </HBox>
+            
+            <!-- Panel para Código y Validar -->
+            <HBox fx:id="panelValidarCodigo" spacing="16" alignment="CENTER_LEFT">
+                <Label text="Código:" minWidth="150" style="-fx-font-size: 18px;"/>
+                <TextField fx:id="txtCodigo" prefWidth="300" styleClass="campo-texto"/>
+                <Button fx:id="btnValidar" text="Validar" minWidth="100" styleClass="boton-principal"/>
+            </HBox>
+            
+            <HBox spacing="16" alignment="CENTER_LEFT" fx:id="panelNuevaContrasena" visible="false">
+                <Label text="Nueva Contraseña:" minWidth="150" style="-fx-font-size: 18px;"/>
+                <PasswordField fx:id="txtNuevaContrasena" prefWidth="300" styleClass="campo-texto"/>
+            </HBox>
+            
+            <HBox spacing="16" alignment="CENTER_LEFT" fx:id="panelConfirmarContrasena" visible="false">
+                <Label text="Confirmar Contraseña:" minWidth="150" style="-fx-font-size: 18px;"/>
+                <PasswordField fx:id="txtConfirmarContrasena" prefWidth="300" styleClass="campo-texto"/>
+            </HBox>
+            
+            <Button fx:id="btnGuardar" text="Guardar" minWidth="120" styleClass="boton-principal" visible="false"/>
+            
+            <Label fx:id="lblMensaje" style="-fx-text-fill: #d32f2f; -fx-font-size: 14px;"/>
+        </VBox>
+    </center>
+</BorderPane>

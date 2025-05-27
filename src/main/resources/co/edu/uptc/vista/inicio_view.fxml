@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="1024" prefWidth="1440"
+            xmlns="http://javafx.com/javafx/13"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="co.edu.uptc.vista.InicioViewController"
+            style="-fx-background-color: linear-gradient(to bottom right, #E0F2F1, rgb(150, 236, 116));"
+            stylesheets="@../Estilos/Inicio.css">
+
+   <left>
+      <VBox prefWidth="500" spacing="30"
+            style="-fx-background-color: linear-gradient(to bottom, rgb(255,255,255), rgb(255,255,255));">
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30" />
+         </padding>
+         <children>
+            <Label text="Nombre Aplicación" style="-fx-text-fill: #2e7d32;">
+               <font>
+                  <Font name="System Bold" size="32.0" />
+               </font>
+            </Label>
+            <BorderPane prefHeight="320"
+                        style="-fx-border-color: #4caf50; -fx-border-width: 2px; -fx-background-radius: 10; -fx-background-color: #e8f5e9;">
+               <center>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fx:id="logoImageView"
+                                   fitHeight="400"
+                                   fitWidth="400"
+                                   preserveRatio="true"
+                                   style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
+                        <Label text="Recicla y cuida el planeta"
+                               style="-fx-text-fill:rgb(255, 255, 255); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
+                     </children>
+                  </VBox>
+               </center>
+            </BorderPane>
+            <BorderPane prefHeight="320"
+                        style="-fx-border-color: #4caf50; -fx-border-width: 2px; -fx-background-radius: 10; -fx-background-color: #f1f8e9;">
+               <center>
+                  <Label text="¿Sabías que reciclar una tonelada de papel ahorra más de 30.000 litros de agua?"
+                         BorderPane.alignment="CENTER"
+                         wrapText="true"
+                         style="-fx-text-fill: #33691e; -fx-font-size: 18px; -fx-padding: 20;"/>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </left>
+
+   <right>
+      <VBox alignment="CENTER" prefWidth="900" spacing="30"
+            style="-fx-background-color: linear-gradient(to bottom, #FFFFFF, rgba(190, 245, 164, 0.56));">
+         <padding>
+            <Insets bottom="30" left="30" right="30" top="30" />
+         </padding>
+         <children>
+            <HBox alignment="TOP_RIGHT" spacing="20">
+               <children>
+                  <Button fx:id="btnAcercaDe"
+                          styleClass="boton-verde"
+                          text="Acerca de" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button fx:id="btnAccesibilidad"
+                          styleClass="boton-verde"
+                          text="Accesibilidad" />
+                  <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="Idioma" />
+               </children>
+            </HBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <Label text="Bienvenid@s" textAlignment="CENTER" style="-fx-text-fill: #388e3c;">
+               <font>
+                  <Font name="System Bold" size="48.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnIniciarSesion"
+                    onAction="#handleIniciarSesion"
+                    prefHeight="70" prefWidth="400"
+                    styleClass="boton-verde"
+                    text="Iniciar sesión"/>
+            <Button fx:id="btnRegistro"
+                    onAction="#handleRegistro"
+                    prefHeight="70" prefWidth="400"
+                    styleClass="boton-verde"
+                    text="Registro"/>
+            <Region VBox.vgrow="ALWAYS" />
+            <HBox alignment="BOTTOM_LEFT">
+               <children>
+                  <Button fx:id="btnAyuda"
+                          styleClass="boton-verde"
+                          text="Ayuda" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

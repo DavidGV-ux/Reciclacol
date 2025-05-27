@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.image.ImageView?>
+
+<HBox prefHeight="1024.0" prefWidth="1440.0" spacing="0"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uptc.vista.InicioSesionViewController"
+      stylesheets="@../Estilos/Registro.css">
+    <!-- Panel Izquierdo -->
+    <VBox prefWidth="720.0" minWidth="720.0" maxWidth="720.0" spacing="0"
+          style="-fx-background-color: white; -fx-border-width:0 2 0 0; -fx-border-color: black;">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+        <!-- Botón Inicio arriba a la izquierda -->
+        <HBox alignment="TOP_LEFT" spacing="10">
+            <Button fx:id="btnVolver" styleClass="boton-circular">
+                <graphic>
+                    <Label text="✖" styleClass="icono-cerrar"/>
+                </graphic>
+            </Button>
+            <Label text="Inicio" styleClass="texto-volver"/>
+        </HBox>
+        <!-- Espaciador flexible para bajar el contenido central (ajusta el balance aquí) -->
+        <Region prefHeight="60"/> <!-- Puedes ajustar este valor -->
+        <Region VBox.vgrow="ALWAYS"/> <!-- Espaciador flexible -->
+        <!-- Título -->
+        <Label alignment="CENTER" text="Inicio de sesión" styleClass="titulo"/>
+        <Region prefHeight="30"/>
+        <!-- Imagen/logo alusivo (simulación del recuadro con X) -->
+        <VBox alignment="CENTER" styleClass="logo-panel" prefHeight="320" prefWidth="560">
+             <ImageView fx:id="logoImageView"
+                                   fitHeight="400"
+                                   fitWidth="400"
+                                   preserveRatio="true"
+                                   style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
+                        <Label text="Recicla y cuida el planeta"
+                               style="-fx-text-fill:rgb(255, 255, 255); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
+        </VBox>
+        <Region prefHeight="40"/>
+        <!-- Espaciador inferior para no pegar el contenido abajo -->
+        <Region VBox.vgrow="ALWAYS"/> <!-- Espaciador flexible inferior -->
+        <!-- Ayuda y registro abajo -->
+        <HBox alignment="BOTTOM_LEFT" spacing="10">
+            <Button fx:id="btnAyuda" styleClass="boton-circular">
+                <graphic>
+                    <Label text="✖" styleClass="icono-cerrar"/>
+                </graphic>
+            </Button>
+            <Label text="Ayuda" styleClass="texto-volver"/>
+            <Region prefWidth="40"/>
+            <Label text="¿Aún no tienes acceso? Regístrate desde el menú de registro" style="-fx-font-size: 18px;"/>
+        </HBox>
+        <Region prefHeight="20"/>
+    </VBox>
+
+    <!-- Panel Derecho -->
+    <VBox prefWidth="720.0" minWidth="720.0" maxWidth="720.0" spacing="0"
+          alignment="TOP_CENTER"
+          style="-fx-background-color: white;">
+        <padding>
+            <Insets top="40" right="40" bottom="40" left="40"/>
+        </padding>
+        <!-- Barra superior: accesibilidad, acerca de e idioma -->
+        <HBox alignment="TOP_RIGHT" spacing="20">
+            <Button fx:id="btnAccesibilidad" styleClass="boton-circular">
+                <graphic>
+                    <Label text="✖" styleClass="icono-cerrar"/>
+                </graphic>
+            </Button>
+            <Label text="Accesibilidad" styleClass="texto-volver"/>
+            <Button fx:id="btnAcercaDe" styleClass="boton-circular">
+                <graphic>
+                    <Label text="✖" styleClass="icono-cerrar"/>
+                </graphic>
+            </Button>
+            <Label text="Acerca de" styleClass="texto-volver"/>
+            <ComboBox fx:id="comboIdioma" promptText="Idioma" prefWidth="160" style="-fx-font-size: 18px;"/>
+        </HBox>
+        <!-- Espaciador flexible para bajar el contenido central (ajusta el balance aquí) -->
+        <Region prefHeight="60"/> <!-- Puedes ajustar este valor -->
+        <Region VBox.vgrow="ALWAYS"/> <!-- Espaciador flexible -->
+        <!-- Mensaje bienvenida -->
+        <Label text="¡Te damos la bienvenida!" styleClass="bienvenida"/>
+        <Region prefHeight="20"/>
+        <Label text="¡Ingresa tu número de documento!" style="-fx-font-size: 22px;"/>
+        <Region prefHeight="20"/>
+        <!-- Campo usuario -->
+        <TextField fx:id="txtCorreoID" promptText="Número de documento" styleClass="campo-texto"/>
+        <Region prefHeight="20"/>
+        <Label text="¡Ahora tu contraseña!" style="-fx-font-size: 22px;"/>
+        <Region prefHeight="20"/>
+        <!-- Campo contraseña -->
+        <PasswordField fx:id="pfContrasena" promptText="Confirmar contraseña" styleClass="campo-texto"/>
+        <Region prefHeight="20"/>
+        <!-- Recordar y Olvidó contraseña -->
+        <HBox spacing="20" alignment="CENTER_LEFT">
+            <CheckBox text="Recordar" style="-fx-font-size: 18px;"/>
+            <Hyperlink fx:id="linkOlvidasteContrasena" text="¿Olvidó su contraseña?" styleClass="enlace"/>
+        </HBox>
+        <Region prefHeight="40"/>
+        <!-- Espaciador inferior para no pegar el contenido abajo -->
+        <Region VBox.vgrow="ALWAYS"/> <!-- Espaciador flexible inferior -->
+        <!-- Botón ingresar -->
+        <Button fx:id="btnIniciarSesion" text="INGRESAR" styleClass="boton-principal"/>
+        <Region prefHeight="20"/>
+    </VBox>
+</HBox>

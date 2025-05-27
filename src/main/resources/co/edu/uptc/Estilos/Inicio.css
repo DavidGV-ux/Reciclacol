@@ -1,0 +1,42 @@
+/* Botón verde claro por defecto */
+.boton-verde {
+    -fx-background-color: #a5d6a7;
+    -fx-border-color: #388e3c;
+    -fx-font-size: 18px;
+    -fx-text-fill: #1b5e20;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 5, 0.2, 0, 2);
+}
+
+/* Hover: más oscuro */
+.boton-verde:hover {
+    -fx-background-color: #66bb6a;
+    -fx-text-fill: #fff;
+}
+
+/* Pressed: aún más oscuro */
+.boton-verde:pressed {
+    -fx-background-color: #388e3c;
+    -fx-text-fill: #fff;
+}
+
+/* Puedes crear más variantes cambiando los colores */
+.boton-amarillo {
+    -fx-background-color: #fff176;
+    -fx-border-color: #fbc02d;
+    -fx-font-size: 18px;
+    -fx-text-fill: #795548;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-cursor: hand;
+}
+
+.boton-amarillo:hover {
+    -fx-background-color: #ffe082;
+}
+
+.boton-amarillo:pressed {
+    -fx-background-color: #fbc02d;
+}
