@@ -19,7 +19,7 @@
             stylesheets="@../Estilos/Inicio.css">
 
    <left>
-      <VBox prefWidth="500" spacing="30"
+      <VBox prefWidth="500" spacing="30" alignment="CENTER"
             style="-fx-background-color: linear-gradient(to bottom, rgb(255,255,255), rgb(255,255,255));">
          <padding>
             <Insets bottom="30" left="30" right="30" top="30" />
