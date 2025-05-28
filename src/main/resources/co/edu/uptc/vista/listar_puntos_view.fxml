@@ -19,28 +19,29 @@
         <Insets top="40" right="180" bottom="40" left="180"/>
     </padding>
 
-    <Label text="¡Vas muy bien, el cuidado del medio ambiente está en tus manos!"
-       wrapText="true"
-       maxWidth="1000"
-       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
+    <Label fx:id="lblTitulo"
+           text="%pointsTitle"
+           wrapText="true"
+           maxWidth="1000"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <TableView fx:id="tablaResiduos"
                prefHeight="260"
                prefWidth="700"
                style="-fx-font-size: 20px;">
         <columns>
-            <TableColumn fx:id="colTipo" text="Tipo de residuo" prefWidth="300"/>
-            <TableColumn fx:id="colPuntos" text="Puntos" prefWidth="120"/>
-            <TableColumn fx:id="colFecha" text="Fecha último" prefWidth="220"/>
+            <TableColumn fx:id="colTipo" text="%wasteType" prefWidth="300"/>
+            <TableColumn fx:id="colPuntos" text="%points" prefWidth="120"/>
+            <TableColumn fx:id="colFecha" text="%lastDate" prefWidth="220"/>
         </columns>
     </TableView>
 
     <Label fx:id="lblPuntosTotales"
-           text="Puntos totales: 0"
+           text="%totalPoints"
            style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <Button fx:id="btnCerrar"
-            text="Cerrar lista"
+            text="%closeList"
             minWidth="220"
             minHeight="48"
             style="-fx-font-size: 22px; -fx-background-radius: 8; -fx-background-color: #81c784; -fx-text-fill: #1b5e20; -fx-font-weight: bold;"/>

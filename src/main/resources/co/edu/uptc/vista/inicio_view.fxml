@@ -25,7 +25,7 @@
             <Insets bottom="30" left="30" right="30" top="30" />
          </padding>
          <children>
-            <Label text="Nombre Aplicación" style="-fx-text-fill: #2e7d32;">
+            <Label text="%appName" style="-fx-text-fill: #2e7d32;">
                <font>
                   <Font name="System Bold" size="32.0" />
                </font>
@@ -40,7 +40,7 @@
                                    fitWidth="400"
                                    preserveRatio="true"
                                    style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
-                        <Label text="Recicla y cuida el planeta"
+                        <Label text="%slogan"
                                style="-fx-text-fill:rgb(255, 255, 255); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
                      </children>
                   </VBox>
@@ -49,7 +49,7 @@
             <BorderPane prefHeight="320"
                         style="-fx-border-color: #4caf50; -fx-border-width: 2px; -fx-background-radius: 10; -fx-background-color: #f1f8e9;">
                <center>
-                  <Label text="¿Sabías que reciclar una tonelada de papel ahorra más de 30.000 litros de agua?"
+                  <Label text="%fact"
                          BorderPane.alignment="CENTER"
                          wrapText="true"
                          style="-fx-text-fill: #33691e; -fx-font-size: 18px; -fx-padding: 20;"/>
@@ -69,17 +69,17 @@
             <HBox alignment="TOP_RIGHT" spacing="20">
                <children>
                   <Button fx:id="btnAcercaDe"
-                          styleClass="boton-verde"
-                          text="Acerca de" />
+                        styleClass="boton-verde"
+                        text="%about" />
                   <Region HBox.hgrow="ALWAYS" />
                   <Button fx:id="btnAccesibilidad"
-                          styleClass="boton-verde"
-                          text="Accesibilidad" />
-                  <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="Idioma" />
+                        styleClass="boton-verde"
+                        text="%accessibility" />
+                  <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" />
                </children>
             </HBox>
             <Region VBox.vgrow="ALWAYS" />
-            <Label text="Bienvenid@s" textAlignment="CENTER" style="-fx-text-fill: #388e3c;">
+            <Label text="%welcome" textAlignment="CENTER" style="-fx-text-fill: #388e3c;">
                <font>
                   <Font name="System Bold" size="48.0" />
                </font>
@@ -88,18 +88,18 @@
                     onAction="#handleIniciarSesion"
                     prefHeight="70" prefWidth="400"
                     styleClass="boton-verde"
-                    text="Iniciar sesión"/>
+                    text="%login"/>
             <Button fx:id="btnRegistro"
                     onAction="#handleRegistro"
                     prefHeight="70" prefWidth="400"
                     styleClass="boton-verde"
-                    text="Registro"/>
+                    text="%register"/>
             <Region VBox.vgrow="ALWAYS" />
             <HBox alignment="BOTTOM_LEFT">
                <children>
                   <Button fx:id="btnAyuda"
                           styleClass="boton-verde"
-                          text="Ayuda" />
+                          text="%help" />
                </children>
             </HBox>
          </children>

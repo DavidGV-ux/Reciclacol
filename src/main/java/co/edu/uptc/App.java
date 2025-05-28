@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
 import co.edu.uptc.servicio.ReciclajeServicio;
+import co.edu.uptc.vista.AppContext;
 import co.edu.uptc.vista.InicioViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +20,10 @@ public class App extends Application {
         ReciclajeServicio servicio = new ReciclajeServicio();
         ReciclajeControlador controlador = new ReciclajeControlador(servicio);
         
+        
         // Cargar la vista de inicio
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"));
+         FXMLLoader loader = new FXMLLoader(
+            getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"), AppContext.getBundle());
         Parent root = loader.load();
         
         // Obtener el controlador y pasarle el ReciclajeControlador

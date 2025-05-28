@@ -15,8 +15,6 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.RowConstraints?>
 
-
-
 <HBox prefHeight="1024.0" prefWidth="1440.0" spacing="0"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
@@ -29,40 +27,36 @@
         <padding>
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
-        <!-- Botón Inicio arriba a la izquierda -->
         <HBox alignment="TOP_LEFT" spacing="10">
             <Button fx:id="btnInicio" styleClass="boton-circular">
                 <graphic>
                     <Label text="✖" styleClass="icono-cerrar"/>
                 </graphic>
             </Button>
-            <Label text="Inicio" styleClass="texto-volver"/>
+            <Label text="%inicio" styleClass="texto-volver"/>
         </HBox>
         <Region prefHeight="60"/>
         <Region VBox.vgrow="ALWAYS"/>
-        <!-- Título -->
-        <Label alignment="CENTER" text="Registro" styleClass="titulo"/>
+        <Label alignment="CENTER" text="%register" styleClass="titulo"/>
         <Region prefHeight="30"/>
-        <!-- Imagen/logo alusivo -->
         <VBox alignment="CENTER" styleClass="logo-panel" prefHeight="320" prefWidth="560">
             <ImageView fx:id="logoImageView"
                        fitHeight="400"
                        fitWidth="400"
                        preserveRatio="true"
                        style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
-            <Label text="Recicla y cuida el planeta"
+            <Label text="%slogan"
                    style="-fx-text-fill:rgb(255, 255, 255); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
         </VBox>
         <Region prefHeight="40"/>
         <Region VBox.vgrow="ALWAYS"/>
-        <!-- Ayuda y registro abajo -->
         <HBox alignment="BOTTOM_LEFT" spacing="10">
             <Button fx:id="btnAyuda" styleClass="boton-circular">
                 <graphic>
                     <Label text="✖" styleClass="icono-cerrar"/>
                 </graphic>
             </Button>
-            <Label text="Ayuda" styleClass="texto-volver"/>
+            <Label text="%help" styleClass="texto-volver"/>
         </HBox>
         <Region prefHeight="20"/>
     </VBox>
@@ -74,22 +68,19 @@
         <padding>
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
-        <!-- Barra superior: accesibilidad, idioma -->
         <HBox alignment="TOP_RIGHT" spacing="20">
             <Button fx:id="btnAccesibilidad" styleClass="boton-circular">
                 <graphic>
                     <Label text="✖" styleClass="icono-cerrar"/>
                 </graphic>
             </Button>
-            <Label text="Accesibilidad" styleClass="texto-volver"/>
-            <ComboBox fx:id="comboIdioma" promptText="Idioma" prefWidth="160" style="-fx-font-size: 18px;"/>
+            <Label text="%accessibility" styleClass="texto-volver"/>
+            <ComboBox fx:id="comboIdioma" promptText="%language" prefWidth="160" style="-fx-font-size: 18px;"/>
         </HBox>
         <Region prefHeight="60"/>
         <Region VBox.vgrow="ALWAYS"/>
-        <!-- Mensaje bienvenida -->
-        <Label text="¡Ingresa tus datos personales!" styleClass="bienvenida"/>
+        <Label text="%registerWelcome" styleClass="bienvenida"/>
         <Region prefHeight="30"/>
-        <!-- GridPane para datos personales -->
         <GridPane hgap="16" vgap="8" alignment="CENTER">
             <columnConstraints>
                 <ColumnConstraints percentWidth="50"/>
@@ -105,52 +96,48 @@
                 <RowConstraints minHeight="20"/>
                 <RowConstraints minHeight="40"/>
             </rowConstraints>
-
             <!-- Primer nombre -->
             <Label fx:id="lblErrorPrimerNombre" styleClass="error-mensaje" visible="false" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
             <Label fx:id="lblErrorSegundoNombre" styleClass="error-mensaje" visible="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-            <TextField fx:id="txtPrimerNombre" promptText="Nombre 1" styleClass="campo-texto" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtSegundoNombre" promptText="Nombre 2 (opc)" styleClass="campo-texto" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-
+            <TextField fx:id="txtPrimerNombre" promptText="%firstName" styleClass="campo-texto" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtSegundoNombre" promptText="%secondName" styleClass="campo-texto" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
             <!-- Primer apellido -->
             <Label fx:id="lblErrorPrimerApellido" styleClass="error-mensaje" visible="false" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
             <Label fx:id="lblErrorSegundoApellido" styleClass="error-mensaje" visible="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-            <TextField fx:id="txtPrimerApellido" promptText="Apellido 1" styleClass="campo-texto" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtSegundoApellido" promptText="Apellido 2 (opc)" styleClass="campo-texto" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-
+            <TextField fx:id="txtPrimerApellido" promptText="%firstSurname" styleClass="campo-texto" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtSegundoApellido" promptText="%secondSurname" styleClass="campo-texto" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
             <!-- Tipo documento y número documento -->
             <Label fx:id="lblErrorTipoDocumento" styleClass="error-mensaje" visible="false" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
             <Label fx:id="lblErrorNumeroDocumento" styleClass="error-mensaje" visible="false" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
-            <ComboBox fx:id="comboTipoDocumento" promptText="Tipo documento" styleClass="campo-texto" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtNumeroDocumento" promptText="Número de documento" styleClass="campo-texto" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
-
+            <ComboBox fx:id="comboTipoDocumento" promptText="%docType" styleClass="campo-texto" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtNumeroDocumento" promptText="%idPrompt" styleClass="campo-texto" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
             <!-- Teléfono y correo -->
             <Label fx:id="lblErrorTelefono" styleClass="error-mensaje" visible="false" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
             <Label fx:id="lblErrorCorreo" styleClass="error-mensaje" visible="false" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
-            <TextField fx:id="txtTelefono" promptText="Número de teléfono" styleClass="campo-texto" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
-            <TextField fx:id="txtCorreo" promptText="Correo electrónico" styleClass="campo-texto" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            <TextField fx:id="txtTelefono" promptText="%phone" styleClass="campo-texto" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <TextField fx:id="txtCorreo" promptText="%email" styleClass="campo-texto" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
         </GridPane>
         <Region prefHeight="20"/>
-        <Label text="¡Crea tu contraseña, pero no se la digas a nadie!" style="-fx-font-size: 14px;"/>
+        <Label text="%registerPasswordMsg" style="-fx-font-size: 14px;"/>
         <Region prefHeight="10"/>
         <HBox spacing="16" alignment="CENTER">
             <VBox>
                 <Label fx:id="lblErrorContrasena" styleClass="error-mensaje" visible="false"/>
-                <PasswordField fx:id="pfContrasena" promptText="Contraseña" styleClass="campo-texto" prefWidth="260"/>
+                <PasswordField fx:id="pfContrasena" promptText="%passwordPrompt" styleClass="campo-texto" prefWidth="260"/>
             </VBox>
             <VBox>
                 <Label fx:id="lblErrorConfirmarContrasena" styleClass="error-mensaje" visible="false"/>
-                <PasswordField fx:id="pfConfirmarContrasena" promptText="Confirmar contraseña" styleClass="campo-texto" prefWidth="180"/>
+                <PasswordField fx:id="pfConfirmarContrasena" promptText="%confirmPasswordPrompt" styleClass="campo-texto" prefWidth="180"/>
             </VBox>
         </HBox>
         <Region prefHeight="10"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
             <CheckBox fx:id="chkTerminos"/>
-            <Hyperlink text="Aceptar términos y condiciones" styleClass="enlace"/>
+            <Hyperlink text="%acceptTerms" styleClass="enlace"/>
         </HBox>
         <Label fx:id="lblErrorTerminos" styleClass="error-mensaje" visible="false"/>
         <Region prefHeight="20"/>
-        <Button fx:id="btnRegistrar" text="REGISTRAR" styleClass="boton-principal"/>
+        <Button fx:id="btnRegistrar" text="%register" styleClass="boton-principal"/>
         <Region prefHeight="20"/>
         <Region VBox.vgrow="ALWAYS"/>
     </VBox>

@@ -19,13 +19,15 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class GenerarReporteViewController {
+public class GenerarReporteViewController implements Internacionalizable {
 
     @FXML private Button btnGenerar;
     @FXML private Button btnDescargar;
     @FXML private ScrollPane scrollPreview;
     @FXML private ImageView imgPreview;
     @FXML private Label lblMensaje;
+    @FXML private Label lblTitulo;
+
 
     private ReciclajeControlador controlador;
     private boolean previewMostrada = false;
@@ -93,4 +95,32 @@ public class GenerarReporteViewController {
             }
         }
     }
+
+    @Override
+public void actualizarTextos() {
+    lblTitulo.setText(AppContext.getBundle().getString("reportTitle"));
+    btnGenerar.setText(AppContext.getBundle().getString("generate"));
+    btnDescargar.setText(AppContext.getBundle().getString("download"));
+
+    // Si tienes mensajes actualmente visibles, puedes traducirlos aquí si lo deseas
+    String msg = lblMensaje.getText();
+    if ("Vista previa generada correctamente.".equals(msg) || "Preview generated successfully.".equals(msg)) {
+        lblMensaje.setText(AppContext.getBundle().getString("previewSuccess"));
+        lblMensaje.setStyle("-fx-text-fill: green;");
+    } else if ("Error al generar la vista previa.".equals(msg) || "Error generating preview.".equals(msg)) {
+        lblMensaje.setText(AppContext.getBundle().getString("previewError"));
+        lblMensaje.setStyle("-fx-text-fill: red;");
+    } else if ("Primero debes generar una vista previa.".equals(msg) || "You must generate a preview first.".equals(msg)) {
+        lblMensaje.setText(AppContext.getBundle().getString("downloadFirst"));
+        lblMensaje.setStyle("-fx-text-fill: red;");
+    } else if (msg != null && (msg.startsWith("Reporte guardado en:") || msg.startsWith("Report saved at:"))) {
+        // Extrae la ruta y traduce el mensaje
+        String ruta = msg.substring(msg.indexOf(":") + 1).trim();
+        lblMensaje.setText(AppContext.getBundle().getString("saveSuccess").replace("{0}", ruta));
+        lblMensaje.setStyle("-fx-text-fill: green;");
+    } else if ("Error al guardar el reporte.".equals(msg) || "Error saving the report.".equals(msg)) {
+        lblMensaje.setText(AppContext.getBundle().getString("saveError"));
+        lblMensaje.setStyle("-fx-text-fill: red;");
+    }
+}
 }

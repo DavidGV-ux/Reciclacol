@@ -20,15 +20,16 @@
         <Insets top="60" right="180" bottom="60" left="180"/>
     </padding>
 
-    <Label text="¡Bienvenido al Sistema de Generar Reporte!"
+    <Label fx:id="lblTitulo"
+           text="%reportTitle"
            style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <HBox alignment="CENTER" spacing="60">
         <VBox spacing="24" alignment="CENTER">
-            <Button fx:id="btnGenerar" text="Generar"
+            <Button fx:id="btnGenerar" text="%generate" 
                     minWidth="140" minHeight="40"
                     style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #81c784; -fx-text-fill: #1b5e20; -fx-font-weight: bold;"/>
-            <Button fx:id="btnDescargar" text="Descargar"
+            <Button fx:id="btnDescargar" text="%download"
                     minWidth="140" minHeight="40"
                     style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #fff176; -fx-text-fill: #795548; -fx-font-weight: bold;"/>
         </VBox>

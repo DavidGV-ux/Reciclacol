@@ -1,17 +1,20 @@
 package co.edu.uptc.vista;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import co.edu.uptc.controlador.ReciclajeControlador;
 import co.edu.uptc.modelo.Residuo;
 import co.edu.uptc.modelo.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-public class ListarPuntosController {
+public class ListarPuntosController implements Internacionalizable{
 
     @FXML private TableView<ResiduoRow> tablaResiduos;
     @FXML private TableColumn<ResiduoRow, String> colTipo;
@@ -48,19 +51,18 @@ public class ListarPuntosController {
         if (controlador == null) return;
         Usuario usuario = controlador.obtenerUsuarioActual();
         if (usuario == null) {
-            lblMensaje.setText("No hay usuario autenticado.");
+            lblMensaje.setText(AppContext.getBundle().getString("noUser"));
             return;
         }
         List<Residuo> residuos = usuario.getResiduos();
         if (residuos == null || residuos.isEmpty()) {
             lblMensaje.setStyle("-fx-text-fill: red;");
-            lblMensaje.setText("No tiene puntos para listar.");
+            lblMensaje.setText(AppContext.getBundle().getString("noPoints"));
             tablaResiduos.setItems(FXCollections.observableArrayList());
-            lblPuntosTotales.setText("Puntos totales: 0");
+            lblPuntosTotales.setText(AppContext.getBundle().getString("totalPoints").replace("{0}", "0"));
             return;
         }
-
-        // Agrupar por tipo de residuo, sumar puntos y mostrar fecha del último
+    
         java.util.Map<String, ResiduoRow> resumen = new java.util.HashMap<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         for (Residuo r : residuos) {
@@ -72,16 +74,16 @@ public class ListarPuntosController {
             } else {
                 ResiduoRow row = resumen.get(tipo);
                 row.puntos += puntos;
-                // Actualiza la fecha si es más reciente
                 if (fecha.compareTo(row.fechaUltimo) > 0) row.fechaUltimo = fecha;
             }
         }
         ObservableList<ResiduoRow> rows = FXCollections.observableArrayList(resumen.values());
         tablaResiduos.setItems(rows);
-
+    
         int total = resumen.values().stream().mapToInt(r -> r.puntos).sum();
-        lblPuntosTotales.setText("Puntos totales: " + total);
+        lblPuntosTotales.setText(AppContext.getBundle().getString("totalPoints").replace("{0}", String.valueOf(total)));
     }
+    
 
     public static class ResiduoRow {
         private String tipo;
@@ -97,4 +99,22 @@ public class ListarPuntosController {
         public int getPuntos() { return puntos; }
         public String getFechaUltimo() { return fechaUltimo; }
     }
+
+    @Override
+public void actualizarTextos() {
+    // Encabezados de columnas
+    colTipo.setText(AppContext.getBundle().getString("wasteType"));
+    colPuntos.setText(AppContext.getBundle().getString("points"));
+    colFecha.setText(AppContext.getBundle().getString("lastDate"));
+
+    // Placeholder de la tabla
+    tablaResiduos.setPlaceholder(new Label(AppContext.getBundle().getString("noPoints")));
+
+    // Botón cerrar
+    btnCerrar.setText(AppContext.getBundle().getString("closeList"));
+
+    // Vuelve a cargar los datos para actualizar los textos de resumen y mensajes
+    cargarDatos();
+}
+
 }

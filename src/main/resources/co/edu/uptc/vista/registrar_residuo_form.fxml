@@ -20,24 +20,24 @@
         <Insets top="40" right="180" bottom="40" left="180"/>
     </padding>
 
-    <Label text="¡Bienvenido al Sistema de Registro de Residuos!"
+    <Label fx:id="lblTitulo" text="%wasteWelcome"
            style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <HBox spacing="48" alignment="CENTER">
         <VBox spacing="24">
             <HBox spacing="18" alignment="CENTER_LEFT">
-                <Label text="Tipo de Material" minWidth="160" style="-fx-font-size: 20px;"/>
-                <ComboBox fx:id="comboTipoMaterial" promptText="Seleccione"
+                <Label fx:id="lblMaterial" text="%materialType" minWidth="160" style="-fx-font-size: 20px;"/>
+                <ComboBox fx:id="comboTipoMaterial" promptText="%selectMaterial"
                           prefWidth="220" style="-fx-font-size: 18px;"/>
             </HBox>
             <HBox spacing="18" alignment="CENTER_LEFT">
-                <Label text="Peso (kg)" minWidth="160" style="-fx-font-size: 20px;"/>
-                <TextField fx:id="txtPeso" promptText="Ej: 15.5"
+                <Label fx:id="lblPeso" text="%weight" minWidth="160" style="-fx-font-size: 20px;"/>
+                <TextField fx:id="txtPeso" promptText="%weightExample"
                            maxWidth="140" style="-fx-font-size: 18px;"/>
             </HBox>
         </VBox>
         <VBox spacing="18" alignment="CENTER">
-            <Button fx:id="btnAgregar" text="Agregar"
+            <Button fx:id="btnAgregar" text="%add"
                     minWidth="140" minHeight="48"
                     style="-fx-font-size: 20px; -fx-background-radius: 8; -fx-background-color: #81c784; -fx-text-fill: #1b5e20; -fx-font-weight: bold;"/>
         </VBox>
@@ -46,22 +46,22 @@
     <HBox spacing="48" alignment="CENTER">
         <TableView fx:id="tablaResumen" prefWidth="480" prefHeight="240" style="-fx-font-size: 18px;">
             <columns>
-                <TableColumn fx:id="colMaterial" text="Material" prefWidth="260"/>
-                <TableColumn fx:id="colPeso" text="Peso (kg)" prefWidth="140"/>
+                <TableColumn fx:id="colMaterial" text="%materialColumn" prefWidth="260"/>
+                <TableColumn fx:id="colPeso" text="%weightColumn" prefWidth="140"/>
             </columns>
         </TableView>
         <VBox spacing="18" alignment="TOP_CENTER">
-            <Button fx:id="btnModificar" text="Modificar"
+            <Button fx:id="btnModificar" text="%modify"
                     minWidth="140" minHeight="44"
                     style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #fff176; -fx-text-fill: #795548; -fx-font-weight: bold;"/>
-            <Button fx:id="btnEliminar" text="Eliminar"
+            <Button fx:id="btnEliminar" text="%delete"
                     minWidth="140" minHeight="44"
                     style="-fx-font-size: 18px; -fx-background-radius: 8; -fx-background-color: #ef9a9a; -fx-text-fill: #b71c1c; -fx-font-weight: bold;"/>
         </VBox>
     </HBox>
 
     <HBox alignment="CENTER">
-        <Button fx:id="btnGuardar" text="Guardar"
+        <Button fx:id="btnGuardar" text="%save"
                 minWidth="260" minHeight="54"
                 style="-fx-font-size: 22px; -fx-background-radius: 8; -fx-background-color: #388e3c; -fx-text-fill: white; -fx-font-weight: bold;"/>
     </HBox>

@@ -71,9 +71,14 @@
         "tipoMaterial": "Metal",
         "peso": 19.0,
         "fechaEntrega": "may. 21, 2025"
+      },
+      {
+        "tipoMaterial": "Cartón",
+        "peso": 15.2,
+        "fechaEntrega": "may. 27, 2025"
       }
     ],
-    "puntosEcologicos": 690
+    "puntosEcologicos": 842
   },
   "1234567890": {
     "primerNombre": "Alejandra",
@@ -140,6 +145,17 @@
     "direccion": "",
     "correo": "alejandramendivelso33@gmail.com",
     "telefono": 3027773,
+    "residuos": [],
+    "puntosEcologicos": 0
+  },
+  "102938": {
+    "primerNombre": "Luis Manrique",
+    "primerApellido": "Suarez",
+    "identificacion": "102938",
+    "contrasena": "1234",
+    "direccion": "",
+    "correo": "lll@gmail.com",
+    "telefono": 121112,
     "residuos": [],
     "puntosEcologicos": 0
   }

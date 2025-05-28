@@ -1,15 +1,20 @@
 package co.edu.uptc.vista;
 
+import java.sql.Date;
+
 import co.edu.uptc.controlador.ReciclajeControlador;
 import co.edu.uptc.modelo.Residuo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 
-import java.sql.Date;
-
-public class RegistrarResiduoController {
+public class RegistrarResiduoController implements Internacionalizable{
 
     @FXML private ComboBox<String> comboTipoMaterial;
     @FXML private TextField txtPeso;
@@ -21,6 +26,10 @@ public class RegistrarResiduoController {
     @FXML private Button btnEliminar;
     @FXML private Button btnGuardar;
     @FXML private Label lblMensaje;
+    @FXML private Label lblTitulo;
+    @FXML private Label lblMaterial;
+    @FXML private Label lblPeso;
+
 
     private ReciclajeControlador controlador;
     private final ObservableList<Residuo> residuosTemp = FXCollections.observableArrayList();
@@ -116,4 +125,26 @@ public class RegistrarResiduoController {
             lblMensaje.setText("Error al guardar algunos residuos.");
         }
     }
+
+    @Override
+    public void actualizarTextos() {
+        lblTitulo.setText(AppContext.getBundle().getString("wasteWelcome"));
+        lblMaterial.setText(AppContext.getBundle().getString("materialType"));
+        lblPeso.setText(AppContext.getBundle().getString("weight"));
+        comboTipoMaterial.getItems().setAll(
+            AppContext.getBundle().getString("plastic"),
+            AppContext.getBundle().getString("glass"),
+            AppContext.getBundle().getString("cardboard"),
+            AppContext.getBundle().getString("metal")
+        );
+        comboTipoMaterial.setPromptText(AppContext.getBundle().getString("selectMaterial"));
+        btnAgregar.setText(AppContext.getBundle().getString("add"));
+        btnModificar.setText(AppContext.getBundle().getString("modify"));
+        btnEliminar.setText(AppContext.getBundle().getString("delete"));
+        btnGuardar.setText(AppContext.getBundle().getString("save"));
+        colMaterial.setText(AppContext.getBundle().getString("materialColumn"));
+        colPeso.setText(AppContext.getBundle().getString("weightColumn"));
+    }
+    
+
 }

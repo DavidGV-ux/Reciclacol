@@ -1,17 +1,20 @@
 package co.edu.uptc.vista;
 
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 import co.edu.uptc.controlador.ReciclajeControlador;
 import co.edu.uptc.modelo.Residuo;
 import co.edu.uptc.modelo.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
-import java.text.SimpleDateFormat;
-import java.util.List;
-
-public class ListarResiduosController {
+public class ListarResiduosController implements Internacionalizable{
 
     @FXML private TableView<ResiduoRow> tablaResiduos;
     @FXML private TableColumn<ResiduoRow, String> colTipo;
@@ -21,6 +24,7 @@ public class ListarResiduosController {
     @FXML private Label lblResumenCantidad;
     @FXML private Button btnCerrar;
     @FXML private Label lblMensaje;
+    @FXML private Label lblTitulo;
 
     private ReciclajeControlador controlador;
     private Runnable onClose;
@@ -93,4 +97,44 @@ public class ListarResiduosController {
         public double getCantidad() { return cantidad; }
         public String getFecha() { return fecha; }
     }
+
+    @Override
+    public void actualizarTextos() {
+    // Encabezados de columnas
+    colTipo.setText(AppContext.getBundle().getString("wasteType"));
+    colCantidad.setText(AppContext.getBundle().getString("wasteAmount"));
+    colFecha.setText(AppContext.getBundle().getString("wasteDate"));
+
+    // Placeholder de la tabla
+    tablaResiduos.setPlaceholder(new Label(AppContext.getBundle().getString("noWaste")));
+
+    // Botón cerrar
+    btnCerrar.setText(AppContext.getBundle().getString("closeList"));
+
+    // Título
+    lblTitulo.setText(AppContext.getBundle().getString("listWasteTitle"));
+
+    // Vuelve a cargar los datos para actualizar los textos de resumen y mensajes
+    cargarDatos();
+
+        // Resúmenes (extrae los valores actuales)
+        String puntos = "0";
+        String kg = "0";
+        if (lblResumenPuntos.getText() != null && lblResumenPuntos.getText().matches(".*\\d+.*")) {
+            puntos = lblResumenPuntos.getText().replaceAll("\\D+", "");
+        }
+        if (lblResumenCantidad.getText() != null && lblResumenCantidad.getText().matches(".*\\d.*")) {
+            kg = lblResumenCantidad.getText().replaceAll("[^\\d.,]", "");
+        }
+        lblResumenPuntos.setText(AppContext.getBundle().getString("summaryPoints").replace("{0}", puntos));
+        lblResumenCantidad.setText(AppContext.getBundle().getString("summaryKg").replace("{0}", kg));
+    
+        // Mensajes de error
+        if ("No hay usuario autenticado.".equals(lblMensaje.getText()) || "No authenticated user.".equals(lblMensaje.getText())) {
+            lblMensaje.setText(AppContext.getBundle().getString("noUser"));
+        } else if ("No tiene residuos para listar.".equals(lblMensaje.getText()) || "You have no waste to list.".equals(lblMensaje.getText())) {
+            lblMensaje.setText(AppContext.getBundle().getString("noWaste"));
+        }
+    }
+    
 }

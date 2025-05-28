@@ -30,30 +30,30 @@
                         <Label text="✖" styleClass="icono-cerrar"/>
                      </graphic>
                   </Button>
-                  <Label text="Inicio" styleClass="texto-volver"/>
+                  <Label text="%inicio" styleClass="texto-volver"/>
                </children>
                <padding>
                   <Insets bottom="16" left="0" right="0" top="0" />
                </padding>
             </HBox>
             <Button fx:id="btnRegistrarResiduos" styleClass="boton-principal-cuadrado"
-        alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
-   <graphic>
-      <HBox alignment="CENTER_LEFT" spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity">
-         <children>
-            <Label text="Registrar residuos" styleClass="opcion-boton-label"/>
-            <Region HBox.hgrow="ALWAYS" />
-            <Label text="➤" styleClass="opcion-boton-label"/>
-         </children>
-      </HBox>
-   </graphic>
-</Button>
-<Button fx:id="btnListarResiduos" styleClass="boton-principal-cuadrado"
-                  alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
+                    alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                      <children>
-                        <Label text="Listar residuos" styleClass="opcion-boton-label"/>
+                        <Label text="%registerWaste" styleClass="opcion-boton-label"/>
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Label text="➤" styleClass="opcion-boton-label"/>
+                     </children>
+                  </HBox>
+               </graphic>
+            </Button>
+            <Button fx:id="btnListarResiduos" styleClass="boton-principal-cuadrado"
+                    alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
+               <graphic>
+                  <HBox alignment="CENTER_LEFT" spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                     <children>
+                        <Label text="%listWaste" styleClass="opcion-boton-label"/>
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="➤" styleClass="opcion-boton-label"/>
                      </children>
@@ -61,11 +61,11 @@
                </graphic>
             </Button>
             <Button fx:id="btnConsultarPuntos" styleClass="boton-principal-cuadrado"
-                  alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
+                    alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                      <children>
-                        <Label text="Consultar puntos" styleClass="opcion-boton-label"/>
+                        <Label text="%consultPoints" styleClass="opcion-boton-label"/>
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="➤" styleClass="opcion-boton-label"/>
                      </children>
@@ -73,11 +73,11 @@
                </graphic>
             </Button>
             <Button fx:id="btnGenerarReporte" styleClass="boton-principal-cuadrado"
-                  alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
+                    alignment="CENTER_LEFT" maxWidth="Infinity" prefHeight="90">
                <graphic>
                   <HBox alignment="CENTER_LEFT" spacing="12" HBox.hgrow="ALWAYS" maxWidth="Infinity">
                      <children>
-                        <Label text="Generar reporte" styleClass="opcion-boton-label"/>
+                        <Label text="%generateReport" styleClass="opcion-boton-label"/>
                         <Region HBox.hgrow="ALWAYS" />
                         <Label text="➤" styleClass="opcion-boton-label"/>
                      </children>
@@ -94,7 +94,7 @@
                                    fitWidth="320"
                                    preserveRatio="true"
                                    style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
-                        <Label text="Recicla y cuida el planeta" styleClass="subtitulo-logo"/>
+                        <Label text="%slogan" styleClass="subtitulo-logo"/>
                      </children>
                   </VBox>
                </center>
@@ -109,7 +109,7 @@
                         <Label text="?" styleClass="icono-cerrar"/>
                      </graphic>
                   </Button>
-                  <Label text="Ayuda" styleClass="texto-volver"/>
+                  <Label text="%help" styleClass="texto-volver"/>
                </children>
             </HBox>
          </children>
@@ -128,17 +128,17 @@
                         <Label text="♿" styleClass="icono-cerrar"/>
                      </graphic>
                   </Button>
-                  <Label text="Accesibilidad" styleClass="texto-volver"/>
-                  <ComboBox fx:id="comboIdioma" promptText="Idioma" prefWidth="140" styleClass="campo-texto combo-idioma"/>
+                  <Label text="%accessibility" styleClass="texto-volver"/>
+                  <ComboBox fx:id="comboIdioma" promptText="%language" prefWidth="140" styleClass="campo-texto combo-idioma"/>
                </children>
             </HBox>
             <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS" style="-fx-padding: 40 0 0 0;">
                <center>
                   <VBox alignment="CENTER" spacing="32">
                      <children>
-                        <Label text="¡Te damos la bienvenida!" styleClass="titulo"/>
+                        <Label text="%welcome" styleClass="titulo"/>
                         <Label fx:id="lblNombreUsuario" text="NOMBRE DE USUARIO" styleClass="bienvenida"/>
-                        <Label text="¡Selecciona la opción que requieras!" styleClass="subtitulo-logo"/>
+                        <Label text="%selectOption" styleClass="subtitulo-logo"/>
                      </children>
                   </VBox>
                </center>

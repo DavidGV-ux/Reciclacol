@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -36,7 +37,8 @@ public class RegistroViewController {
     @FXML private Button btnInicio;
     @FXML private Button btnAyuda;
     @FXML private ImageView logoImageView;
-    private ReciclajeControlador controlador;
+    @FXML private ComboBox<String> comboIdioma;
+    @FXML private Hyperlink acceptTerms;
 
     // Labels de error para cada campo
     @FXML private Label lblErrorPrimerNombre;
@@ -51,24 +53,69 @@ public class RegistroViewController {
     @FXML private Label lblErrorConfirmarContrasena;
     @FXML private Label lblErrorTerminos;
 
+    private ReciclajeControlador controlador;
+
     @FXML
     private void initialize() {
+        configurarIdiomas();
+        cargarLogo();
+
         comboTipoDocumento.getItems().addAll("Cédula", "Pasaporte", "Tarjeta de identidad");
         comboTipoDocumento.setValue("Cédula");
 
         btnRegistrar.setOnAction(e -> registrarUsuario());
         btnInicio.setOnAction(e -> volverInicio());
         btnAyuda.setOnAction(e -> mostrarAyuda());
+    }
 
-        String imagePath = "/co/edu/uptc/imagenes/Logo.png";
-        try {
-            Image logoImage = new Image(getClass().getResourceAsStream(imagePath));
-            if (logoImage.isError()) {
-                System.err.println("Error al cargar la imagen: " + logoImage.getException());
+    private void configurarIdiomas() {
+        comboIdioma.getItems().addAll("Español", "English");
+        String lang = AppContext.getCurrentLocale().getLanguage();
+        comboIdioma.setValue(lang.equals("en") ? "English" : "Español");
+
+        comboIdioma.valueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal != null) {
+                cambiarIdioma(newVal);
+                recargarVista();
             }
+        });
+    }
+
+    private void cambiarIdioma(String nombreIdioma) {
+        switch(nombreIdioma) {
+            case "Español":
+                AppContext.switchLanguage("es");
+                break;
+            case "English":
+                AppContext.switchLanguage("en");
+                break;
+            default:
+                mostrarError("Idioma no soportado", "Seleccione un idioma válido");
+        }
+    }
+
+    private void recargarVista() {
+        try {
+            Stage stage = (Stage) comboIdioma.getScene().getWindow();
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/registro_view.fxml"),
+                AppContext.getBundle()
+            );
+            Parent root = loader.load();
+            RegistroViewController controller = loader.getController();
+            controller.setControlador(this.controlador);
+            stage.setScene(new Scene(root, 1440, 1024));
+        } catch (IOException e) {
+            mostrarError("Error", "No se pudo actualizar el idioma: " + e.getMessage());
+        }
+    }
+
+    private void cargarLogo() {
+        try {
+            Image logoImage = new Image(getClass().getResourceAsStream("/co/edu/uptc/imagenes/Logo.png"));
             logoImageView.setImage(logoImage);
         } catch (Exception e) {
-            System.err.println("No se pudo cargar la imagen: " + imagePath);
+            System.err.println("No se pudo cargar la imagen del logo");
             e.printStackTrace();
         }
     }
@@ -92,67 +139,47 @@ public class RegistroViewController {
         String contrasena = pfContrasena.getText();
         String confirmarContrasena = pfConfirmarContrasena.getText();
 
-        // Validación primer nombre
+        // Validaciones
         if (primerNombre.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarNombre(primerNombre)) {
             marcarError(txtPrimerNombre, lblErrorPrimerNombre, "Nombre inválido (solo letras)");
             valido = false;
         }
-
-        // Validación segundo nombre (opcional, pero si no es vacío debe ser válido)
         if (!segundoNombre.isEmpty() && !co.edu.uptc.util.ValidadorEntrada.validarNombre(segundoNombre)) {
             marcarError(txtSegundoNombre, lblErrorSegundoNombre, "Nombre inválido (solo letras)");
             valido = false;
         }
-
-        // Validación primer apellido
         if (primerApellido.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarNombre(primerApellido)) {
             marcarError(txtPrimerApellido, lblErrorPrimerApellido, "Apellido inválido");
             valido = false;
         }
-
-        // Validación segundo apellido (opcional, pero si no es vacío debe ser válido)
         if (!segundoApellido.isEmpty() && !co.edu.uptc.util.ValidadorEntrada.validarNombre(segundoApellido)) {
             marcarError(txtSegundoApellido, lblErrorSegundoApellido, "Apellido inválido");
             valido = false;
         }
-
-        // Validación tipo documento
         if (tipoDocumento == null || tipoDocumento.isEmpty()) {
             marcarError(comboTipoDocumento, lblErrorTipoDocumento, "Seleccione un tipo de documento");
             valido = false;
         }
-
-        // Validación número documento
         if (numeroDocumento.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarIdentificacion(numeroDocumento)) {
             marcarError(txtNumeroDocumento, lblErrorNumeroDocumento, "Documento inválido");
             valido = false;
         }
-
-        // Validación teléfono
         if (telefonoStr.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarTelefono(telefonoStr)) {
             marcarError(txtTelefono, lblErrorTelefono, "Teléfono inválido (solo números)");
             valido = false;
         }
-
-        // Validación correo
         if (correo.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarCorreo(correo)) {
             marcarError(txtCorreo, lblErrorCorreo, "Correo electrónico inválido");
             valido = false;
         }
-
-        // Validación contraseña
         if (contrasena.length() < 4) {
             marcarError(pfContrasena, lblErrorContrasena, "Mínimo 4 caracteres");
             valido = false;
         }
-
-        // Validación confirmación contraseña
         if (!contrasena.equals(confirmarContrasena)) {
             marcarError(pfConfirmarContrasena, lblErrorConfirmarContrasena, "Las contraseñas no coinciden");
             valido = false;
         }
-
-        // Validación términos
         if (!chkTerminos.isSelected()) {
             lblErrorTerminos.setText("Debe aceptar los términos y condiciones");
             lblErrorTerminos.setVisible(true);
@@ -161,7 +188,6 @@ public class RegistroViewController {
 
         if (!valido) return;
 
-        // Registrar usuario
         int telefono;
         try {
             telefono = Integer.parseInt(telefonoStr);
@@ -176,7 +202,7 @@ public class RegistroViewController {
                 primerApellido,
                 segundoApellido.isEmpty() ? null : segundoApellido,
                 numeroDocumento,
-                "", // Dirección no está en la imagen, puedes agregar si quieres
+                "", // Dirección opcional
                 correo,
                 contrasena,
                 telefono);
@@ -219,7 +245,10 @@ public class RegistroViewController {
 
     private void volverInicio() {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"),
+                AppContext.getBundle()
+            );
             Parent root = loader.load();
 
             InicioViewController inicioController = loader.getController();
@@ -227,7 +256,7 @@ public class RegistroViewController {
 
             Stage stage = (Stage) btnInicio.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
-            stage.setTitle("Inicio");
+            stage.setTitle(AppContext.getBundle().getString("welcome"));
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -235,12 +264,16 @@ public class RegistroViewController {
         }
     }
 
-    private void mostrarError(String mensaje) {
+    private void mostrarError(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
+        alert.setTitle(titulo);
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
         alert.showAndWait();
+    }
+
+    private void mostrarError(String mensaje) {
+        mostrarError("Error", mensaje);
     }
 
     private void mostrarInfo(String mensaje) {
@@ -253,8 +286,8 @@ public class RegistroViewController {
 
     private void mostrarAyuda() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Ayuda");
-        alert.setHeaderText("Ayuda");
+        alert.setTitle(AppContext.getBundle().getString("help"));
+        alert.setHeaderText(AppContext.getBundle().getString("help"));
         alert.setContentText("Aquí puedes colocar información de ayuda para el usuario.");
         alert.showAndWait();
     }
