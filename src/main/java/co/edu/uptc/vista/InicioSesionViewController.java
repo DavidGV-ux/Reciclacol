@@ -1,6 +1,7 @@
 package co.edu.uptc.vista;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
 import javafx.fxml.FXML;
@@ -26,9 +27,9 @@ public class InicioSesionViewController {
     @FXML private ComboBox<String> comboIdioma;
     @FXML private Hyperlink linkOlvidasteContrasena;
     @FXML private Button btnAcercaDe;
-    @FXML private Button btnAccesibilidad;
     @FXML private Button btnAyuda;
     @FXML private ImageView logoImageView;
+    @FXML private ComboBox<String> comboAccesibilidad;
 
     private ReciclajeControlador controlador;
 
@@ -39,10 +40,15 @@ public class InicioSesionViewController {
 
         linkOlvidasteContrasena.setOnAction(e -> mostrarRecuperarContrasena());
         btnAcercaDe.setOnAction(e -> mostrarAlertaNoImplementado("Acerca de"));
-        btnAccesibilidad.setOnAction(e -> mostrarAlertaNoImplementado("Accesibilidad"));
         btnAyuda.setOnAction(e -> mostrarAlertaNoImplementado("Ayuda"));
         btnIniciarSesion.setOnAction(e -> iniciarSesion());
         btnVolver.setOnAction(e -> volverInicio());
+
+        comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
+        comboAccesibilidad.setValue("Normal");
+        comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
+            aplicarAccesibilidad(newVal);
+        });
     }
 
     private void configurarComboIdioma() {
@@ -223,5 +229,18 @@ public class InicioSesionViewController {
         alert.setHeaderText(null);
         alert.setContentText("La funcionalidad \"" + funcionalidad + "\" está en desarrollo.");
         alert.showAndWait();
+    }
+
+    private ResourceBundle bundle;
+
+    public void setResourceBundle(ResourceBundle bundle) {
+        this.bundle = bundle;
+    }
+
+    private void aplicarAccesibilidad(String opcion) {
+        Scene scene = comboAccesibilidad.getScene();
+        if (scene != null) {
+            AccesibilidadViewController.aplicarEstilo(scene, opcion);
+        }
     }
 }

@@ -1,0 +1,4 @@
+/* LetraGrande.css */
+.root, .label, .button, .text-field, .combo-box, .password-field, .hyperlink, .check-box, .radio-button, .list-view, .table-view, .tab, .tab-label, .tab-pane, .menu-bar, .menu, .menu-item, .context-menu, .progress-bar, .slider, .scroll-bar, .scroll-pane, .titled-pane, .accordion, .choice-box, .date-picker, .color-picker, .split-pane, .tree-view, .pagination, .tooltip, .separator, .text-area, .text, .list-cell, .table-cell, .table-row-cell, .cell, .boton-principal, .boton-verde, .boton-circular, .boton-amarillo, .boton-principal-cuadrado, .enlace, .error-mensaje, .mensaje-exito, .titulo, .bienvenida, .texto-volver, .subtitulo-logo, .logo-panel {
+    -fx-font-size: 28px !important;
+}

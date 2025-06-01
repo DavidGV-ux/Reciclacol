@@ -67,12 +67,8 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
         <HBox alignment="TOP_RIGHT" spacing="20">
-            <Button fx:id="btnAccesibilidad" styleClass="boton-circular">
-                <graphic>
-                    <Label text="✖" styleClass="icono-cerrar"/>
-                </graphic>
-            </Button>
             <Label text="%accessibility" styleClass="texto-volver"/>
+            <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
             <Button fx:id="btnAcercaDe" styleClass="boton-circular">
                 <graphic>
                     <Label text="✖" styleClass="icono-cerrar"/>

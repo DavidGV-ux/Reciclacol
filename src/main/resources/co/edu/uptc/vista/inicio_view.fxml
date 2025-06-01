@@ -72,9 +72,8 @@
                         styleClass="boton-verde"
                         text="%about" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Button fx:id="btnAccesibilidad"
-                        styleClass="boton-verde"
-                        text="%accessibility" />
+                  <Label text="%accessibility" styleClass="texto-volver"/>
+                  <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
                   <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" />
                </children>
             </HBox>

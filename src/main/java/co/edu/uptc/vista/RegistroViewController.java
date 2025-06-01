@@ -52,6 +52,7 @@ public class RegistroViewController {
     @FXML private Label lblErrorContrasena;
     @FXML private Label lblErrorConfirmarContrasena;
     @FXML private Label lblErrorTerminos;
+    @FXML private ComboBox<String> comboAccesibilidad;
 
     private ReciclajeControlador controlador;
 
@@ -66,6 +67,12 @@ public class RegistroViewController {
         btnRegistrar.setOnAction(e -> registrarUsuario());
         btnInicio.setOnAction(e -> volverInicio());
         btnAyuda.setOnAction(e -> mostrarAyuda());
+
+        comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
+        comboAccesibilidad.setValue("Normal");
+        comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
+            aplicarAccesibilidad(newVal);
+        });
     }
 
     private void configurarIdiomas() {
@@ -290,5 +297,12 @@ public class RegistroViewController {
         alert.setHeaderText(AppContext.getBundle().getString("help"));
         alert.setContentText("Aquí puedes colocar información de ayuda para el usuario.");
         alert.showAndWait();
+    }
+
+    private void aplicarAccesibilidad(String opcion) {
+        Scene scene = comboAccesibilidad.getScene();
+        if (scene != null) {
+            AccesibilidadViewController.aplicarEstilo(scene, opcion);
+        }
     }
 }

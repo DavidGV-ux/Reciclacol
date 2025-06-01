@@ -23,6 +23,7 @@ public class InicioViewController {
     @FXML private Button btnAyuda;
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboIdioma;
+    @FXML private ComboBox<String> comboAccesibilidad;
 
     private ReciclajeControlador controlador;
 
@@ -52,6 +53,12 @@ public class InicioViewController {
         });
 
         cargarLogo();
+
+        comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
+        comboAccesibilidad.setValue("Normal");
+        comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
+            aplicarAccesibilidad(newVal);
+        });
     }
 
     private void cargarLogo() {
@@ -79,6 +86,9 @@ public class InicioViewController {
             InicioViewController controller = loader.getController();
             controller.setControlador(this.controlador);
             stage.setScene(new Scene(root, 1440, 1024));
+            Scene newScene = new Scene(root, 1440, 1024);
+            AccesibilidadViewController.aplicarEstilo(newScene, AccesibilidadViewController.getEstiloActual());
+            stage.setScene(newScene);
         } catch (IOException e) {
             mostrarError("Error al recargar", "No se pudo actualizar el idioma: " + e.getMessage());
         }
@@ -134,4 +144,12 @@ public class InicioViewController {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    private void aplicarAccesibilidad(String opcion) {
+        Scene scene = comboAccesibilidad.getScene();
+        if (scene != null) {
+            AccesibilidadViewController.aplicarEstilo(scene, opcion);
+        }
+    }
+    
 }

@@ -1,0 +1,63 @@
+/* AltoContraste.css */
+.root {
+    -fx-background-color: #000 !important;
+    -fx-text-fill: #fff !important;
+    -fx-font-size: 22px !important;
+}
+
+/* Controles estándar */
+.label, .button, .text-field, .combo-box, .password-field, .hyperlink, .check-box, .radio-button, .list-view, .table-view, .tab, .tab-label, .tab-pane, .menu-bar, .menu, .menu-item, .context-menu, .progress-bar, .slider, .scroll-bar, .scroll-pane, .titled-pane, .accordion, .choice-box, .date-picker, .color-picker, .split-pane, .tree-view, .pagination, .tooltip, .separator, .text-area, .text, .list-cell, .table-cell, .table-row-cell, .cell {
+    -fx-background-color: #111 !important;
+    -fx-text-fill: #fff !important;
+    -fx-font-weight: bold !important;
+    -fx-border-color: #fff !important;
+    -fx-border-width: 1px !important;
+}
+
+/* Botones personalizados */
+.boton-principal, .boton-verde, .boton-circular, .boton-amarillo, .boton-principal-cuadrado {
+    -fx-background-color: #222 !important;
+    -fx-text-fill: #fff !important;
+    -fx-border-color: #fff !important;
+    -fx-font-weight: bold !important;
+}
+
+/* Enlaces */
+.enlace, .hyperlink {
+    -fx-text-fill: #ffd600 !important;
+    -fx-underline: true !important;
+}
+
+/* Mensajes de error y éxito */
+.error-mensaje {
+    -fx-text-fill: #ff5252 !important;
+    -fx-font-size: 16px !important;
+}
+.mensaje-exito {
+    -fx-text-fill: #00e676 !important;
+    -fx-font-size: 16px !important;
+}
+
+/* Tablas y listas */
+.table-view, .list-view, .tree-view {
+    -fx-background-color: #111 !important;
+    -fx-text-fill: #fff !important;
+    -fx-table-cell-border-color: #fff !important;
+}
+
+/* Otros posibles elementos personalizados */
+.titulo, .bienvenida, .texto-volver, .subtitulo-logo, .logo-panel {
+    -fx-text-fill: #fff !important;
+    -fx-font-size: 24px !important;
+    -fx-font-weight: bold !important;
+}
+
+/* Scrollbars */
+.scroll-bar, .scroll-bar .thumb {
+    -fx-background-color: #333 !important;
+}
+
+/* Para asegurar que todo texto se vea blanco */
+.text {
+    -fx-fill: #fff !important;
+}

@@ -123,13 +123,9 @@
          <children>
             <HBox alignment="TOP_RIGHT" spacing="16">
                <children>
-                  <Button fx:id="btnAccesibilidad" styleClass="boton-circular">
-                     <graphic>
-                        <Label text="♿" styleClass="icono-cerrar"/>
-                     </graphic>
-                  </Button>
                   <Label text="%accessibility" styleClass="texto-volver"/>
-                  <ComboBox fx:id="comboIdioma" promptText="%language" prefWidth="140" styleClass="campo-texto combo-idioma"/>
+                  <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
+                  <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" />
                </children>
             </HBox>
             <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS" style="-fx-padding: 40 0 0 0;">

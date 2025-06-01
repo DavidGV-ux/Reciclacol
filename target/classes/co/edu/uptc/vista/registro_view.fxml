@@ -69,12 +69,7 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
         <HBox alignment="TOP_RIGHT" spacing="20">
-            <Button fx:id="btnAccesibilidad" styleClass="boton-circular">
-                <graphic>
-                    <Label text="✖" styleClass="icono-cerrar"/>
-                </graphic>
-            </Button>
-            <Label text="%accessibility" styleClass="texto-volver"/>
+            <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
             <ComboBox fx:id="comboIdioma" promptText="%language" prefWidth="160" style="-fx-font-size: 18px;"/>
         </HBox>
         <Region prefHeight="60"/>

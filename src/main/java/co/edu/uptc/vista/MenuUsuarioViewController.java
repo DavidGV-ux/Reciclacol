@@ -26,11 +26,11 @@ public class MenuUsuarioViewController implements Internacionalizable{
     @FXML private Button btnConsultarPuntos;
     @FXML private Button btnGenerarReporte;
     @FXML private Button btnAyuda;
-    @FXML private Button btnAccesibilidad;
     @FXML private ComboBox<String> comboIdioma;
     @FXML private Label lblNombreUsuario;
     @FXML private BorderPane contentPane;
     @FXML private ImageView logoImageView;
+    @FXML private ComboBox<String> comboAccesibilidad;
 
     private ReciclajeControlador controlador;
 
@@ -41,12 +41,16 @@ public class MenuUsuarioViewController implements Internacionalizable{
 
         btnInicio.setOnAction(e -> cerrarSesion());
         btnAyuda.setOnAction(e -> mostrarAyuda());
-        btnAccesibilidad.setOnAction(e -> mostrarAccesibilidad());
-
         btnRegistrarResiduos.setOnAction(e -> mostrarRegistrarResiduos());
         btnListarResiduos.setOnAction(e -> mostrarListarResiduos());
         btnConsultarPuntos.setOnAction(e -> mostrarConsultarPuntos());
         btnGenerarReporte.setOnAction(e -> mostrarGenerarReporte());
+
+        comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
+        comboAccesibilidad.setValue("Normal");
+        comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
+            aplicarAccesibilidad(newVal);
+        });
     }
 
     private void configurarComboIdioma() {
@@ -300,5 +304,12 @@ public class MenuUsuarioViewController implements Internacionalizable{
     }
     
     private OpcionMenu ultimaOpcion = OpcionMenu.NINGUNA;
+
+    private void aplicarAccesibilidad(String opcion) {
+        Scene scene = comboAccesibilidad.getScene();
+        if (scene != null) {
+            AccesibilidadViewController.aplicarEstilo(scene, opcion);
+        }
+    }
     
 }
