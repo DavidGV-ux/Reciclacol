@@ -33,7 +33,8 @@ public class InicioViewController {
     private void initialize() {
         comboIdioma.getItems().addAll("Español", "English");
         comboIdioma.setValue(AppContext.getCurrentLocale().getLanguage().equals("en") ? "English" : "Español");
-
+        btnAcercaDe.setOnAction(e -> handleAcercaDe());
+        
         // Listener para cambiar idioma automáticamente
         comboIdioma.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -152,4 +153,17 @@ public class InicioViewController {
         }
     }
     
+        @FXML
+    private void handleAcercaDe() {
+        String titulo = AppContext.getBundle().getString("aboutTitle");
+        String version = AppContext.getBundle().getString("aboutVersion");
+        String licencia = AppContext.getBundle().getString("aboutLicense");
+        String contacto = AppContext.getBundle().getString("aboutContact");
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(titulo);
+        alert.setHeaderText(version);
+        alert.setContentText(licencia + "\n\n" + contacto);
+        alert.showAndWait();
+    }
 }

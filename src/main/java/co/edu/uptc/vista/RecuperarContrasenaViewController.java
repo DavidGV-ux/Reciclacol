@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
 
 public class RecuperarContrasenaViewController {
 
-    @FXML private TextField txtCorreo;
+    @FXML private TextField txtDocumento;
     @FXML private TextField txtCodigo;
     @FXML private PasswordField txtNuevaContrasena;
     @FXML private PasswordField txtConfirmarContrasena;
@@ -29,7 +28,8 @@ public class RecuperarContrasenaViewController {
     @FXML private Button btnValidar;
     @FXML private Button btnGuardar;
     @FXML private Button btnInicio;
-    @FXML private Label lblMensaje;
+    @FXML private Label lblMensajeEnvio;
+    @FXML private Label lblMensajeContrasena;
     @FXML private HBox panelNuevaContrasena;
     @FXML private HBox panelConfirmarContrasena;
     @FXML private HBox panelEnviarCodigo;
@@ -52,7 +52,6 @@ public class RecuperarContrasenaViewController {
         btnGuardar.setOnAction(e -> guardarNuevaContrasena());
         btnInicio.setOnAction(e -> volverAInicioSesion());
 
-        // ComboBox de idioma
         if (comboIdioma != null) {
             comboIdioma.getItems().setAll("Español", "English");
             comboIdioma.setValue(AppContext.getCurrentLocale().getLanguage().equals("en") ? "English" : "Español");
@@ -80,14 +79,15 @@ public class RecuperarContrasenaViewController {
     }
 
     private void enviarCodigo() {
-        String id = txtCorreo.getText().trim();
+        limpiarMensajes();
+        String id = txtDocumento.getText().trim();
         if (id.isEmpty()) {
-            mostrarMensaje(bundle.getString("enterID"), true);
+            mostrarMensajeEnvio(bundle.getString("enterID"), true);
             return;
         }
 
         if (controlador.obtenerUsuario(id) == null) {
-            mostrarMensaje(bundle.getString("userNotFound"), true);
+            mostrarMensajeEnvio(bundle.getString("userNotFound"), true);
             return;
         }
 
@@ -95,14 +95,22 @@ public class RecuperarContrasenaViewController {
         correoActual = controlador.obtenerUsuario(id).getCorreo();
 
         emailService.sendVerificationCode(correoActual);
-
-        mostrarMensaje(MessageFormat.format(bundle.getString("codeSent"), correoActual), false);
+        mostrarMensajeEnvio(MessageFormat.format(bundle.getString("codeSent"), enmascararCorreo(correoActual)), false);
     }
 
     private void validarCodigo() {
+        limpiarMensajes();
         String codigo = txtCodigo.getText().trim();
+
+        // Validación: ¿Hay correo asociado?
+        if (correoActual == null || correoActual.isEmpty()) {
+            mostrarMensajeEnvio(bundle.containsKey("noCodeSent") ? bundle.getString("noCodeSent") : 
+                "Primero debe solicitar el envío de un código.", true);
+            return;
+        }
+
         if (codigo.isEmpty()) {
-            mostrarMensaje(bundle.getString("enterCode"), true);
+            mostrarMensajeEnvio(bundle.getString("enterCode"), true);
             return;
         }
 
@@ -112,34 +120,35 @@ public class RecuperarContrasenaViewController {
             panelNuevaContrasena.setVisible(true);
             panelConfirmarContrasena.setVisible(true);
             btnGuardar.setVisible(true);
-            mostrarMensaje(bundle.getString("codeVerified"), false);
+            limpiarMensajes();
         } else {
-            mostrarMensaje(bundle.getString("wrongCode"), true);
+            mostrarMensajeEnvio(bundle.getString("wrongCode"), true);
         }
     }
 
     private void guardarNuevaContrasena() {
+        limpiarMensajes();
         String nuevaContrasena = txtNuevaContrasena.getText();
         String confirmarContrasena = txtConfirmarContrasena.getText();
 
         if (nuevaContrasena.isEmpty() || confirmarContrasena.isEmpty()) {
-            mostrarMensaje(bundle.getString("fillPasswords"), true);
+            mostrarMensajeContrasena(bundle.getString("fillPasswords"), true);
             return;
         }
 
         if (!nuevaContrasena.equals(confirmarContrasena)) {
-            mostrarMensaje(bundle.getString("passwordsDontMatch"), true);
+            mostrarMensajeContrasena(bundle.getString("passwordsDontMatch"), true);
             return;
         }
 
         actualizarContrasena(identificacionActual, nuevaContrasena);
+        mostrarMensajeContrasena(bundle.getString("passwordChanged"), false);
 
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(bundle.getString("passwordChanged"));
-        alert.setContentText(bundle.getString("passwordChanged"));
-        alert.showAndWait();
-
-        volverAInicioSesion();
+        // Oculta el mensaje y vuelve al inicio después de 2 segundos
+        new Thread(() -> {
+            try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
+            javafx.application.Platform.runLater(this::volverAInicioSesion);
+        }).start();
     }
 
     private void actualizarContrasena(String id, String nuevaContrasena) {
@@ -148,6 +157,21 @@ public class RecuperarContrasenaViewController {
             usuario.setContrasena(nuevaContrasena);
             controlador.guardarCambios();
         }
+    }
+
+    private void mostrarMensajeEnvio(String mensaje, boolean esError) {
+        lblMensajeEnvio.setText(mensaje);
+        lblMensajeEnvio.setStyle(esError ? "-fx-text-fill: #d32f2f;" : "-fx-text-fill: #388e3c;");
+    }
+
+    private void mostrarMensajeContrasena(String mensaje, boolean esError) {
+        lblMensajeContrasena.setText(mensaje);
+        lblMensajeContrasena.setStyle(esError ? "-fx-text-fill: #d32f2f;" : "-fx-text-fill: #388e3c;");
+    }
+
+    private void limpiarMensajes() {
+        lblMensajeEnvio.setText("");
+        lblMensajeContrasena.setText("");
     }
 
     private void volverAInicioSesion() {
@@ -165,17 +189,7 @@ public class RecuperarContrasenaViewController {
             stage.setScene(new Scene(root, 1440, 1024));
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarMensaje(AppContext.getBundle().getString("errorBackToLogin"), true);
-        }
-    }
-
-    private void mostrarMensaje(String mensaje, boolean esError) {
-        lblMensaje.setText(mensaje);
-        lblMensaje.getStyleClass().clear();
-        if (esError) {
-            lblMensaje.getStyleClass().add("error-mensaje");
-        } else {
-            lblMensaje.getStyleClass().add("mensaje-exito");
+            mostrarMensajeEnvio(AppContext.getBundle().getString("errorBackToLogin"), true);
         }
     }
 
@@ -189,7 +203,7 @@ public class RecuperarContrasenaViewController {
             controller.setControlador(controlador);
             controller.setResourceBundle(bundle);
 
-            Stage stage = (Stage) txtCorreo.getScene().getWindow();
+            Stage stage = (Stage) txtDocumento.getScene().getWindow();
             double width = stage.getWidth();
             double height = stage.getHeight();
 

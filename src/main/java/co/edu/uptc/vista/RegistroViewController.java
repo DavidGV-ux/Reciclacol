@@ -55,6 +55,7 @@ public class RegistroViewController {
     @FXML private ComboBox<String> comboAccesibilidad;
 
     private ReciclajeControlador controlador;
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
 
     @FXML
     private void initialize() {
@@ -135,6 +136,7 @@ public class RegistroViewController {
         resetErrores();
         boolean valido = true;
 
+        
         String primerNombre = txtPrimerNombre.getText().trim();
         String segundoNombre = txtSegundoNombre.getText().trim();
         String primerApellido = txtPrimerApellido.getText().trim();
@@ -175,8 +177,14 @@ public class RegistroViewController {
             marcarError(txtTelefono, lblErrorTelefono, "Teléfono inválido (solo números)");
             valido = false;
         }
-        if (correo.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarCorreo(correo)) {
-            marcarError(txtCorreo, lblErrorCorreo, "Correo electrónico inválido");
+        if (correo.isEmpty()) {
+            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailRequired"));
+            valido = false;
+        } else if (correo.contains(" ")) {
+            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailNoSpaces"));
+            valido = false;
+        } else if (!correo.matches(EMAIL_REGEX)) {
+            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailInvalid"));
             valido = false;
         }
         if (contrasena.length() < 4) {
@@ -305,4 +313,6 @@ public class RegistroViewController {
             AccesibilidadViewController.aplicarEstilo(scene, opcion);
         }
     }
+
+    
 }

@@ -76,9 +76,14 @@
         "tipoMaterial": "Cartón",
         "peso": 15.2,
         "fechaEntrega": "may. 27, 2025"
+      },
+      {
+        "tipoMaterial": "Metal",
+        "peso": 12.0,
+        "fechaEntrega": "jun. 2, 2025"
       }
     ],
-    "puntosEcologicos": 842
+    "puntosEcologicos": 962
   },
   "1234567890": {
     "primerNombre": "Alejandra",
@@ -102,7 +107,7 @@
     "primerNombre": "Bambi",
     "primerApellido": "Mendivelso",
     "identificacion": "1054282604",
-    "contrasena": "1234",
+    "contrasena": "maxiteamo",
     "direccion": "",
     "correo": "mia007332@gmail.com",
     "telefono": 122222,
@@ -131,9 +136,14 @@
         "tipoMaterial": "Plástico",
         "peso": 12.0,
         "fechaEntrega": "may. 25, 2025"
+      },
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 55.0,
+        "fechaEntrega": "jun. 2, 2025"
       }
     ],
-    "puntosEcologicos": 830
+    "puntosEcologicos": 1380
   },
   "1234567888": {
     "primerNombre": "Aleja",

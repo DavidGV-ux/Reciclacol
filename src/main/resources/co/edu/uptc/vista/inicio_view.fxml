@@ -69,12 +69,21 @@
             <HBox alignment="TOP_RIGHT" spacing="20">
                <children>
                   <Button fx:id="btnAcercaDe"
-                        styleClass="boton-verde"
-                        text="%about" />
+                          styleClass="boton-verde"
+                          text="%about" onAction="#handleAcercaDe" />
                   <Region HBox.hgrow="ALWAYS" />
-                  <Label text="%accessibility" styleClass="texto-volver"/>
-                  <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
-                  <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" />
+
+                  <!-- VBox para Accesibilidad -->
+                  <VBox alignment="CENTER">
+                     <Label text="%accessibility" styleClass="label-titulo-combo"/>
+                     <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
+                  </VBox>
+
+                  <!-- VBox para Idioma -->
+                  <VBox alignment="CENTER">
+                     <Label text="%language" styleClass="label-titulo-combo"/>
+                     <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" style="-fx-font-size: 14px;"/>
+                  </VBox>
                </children>
             </HBox>
             <Region VBox.vgrow="ALWAYS" />

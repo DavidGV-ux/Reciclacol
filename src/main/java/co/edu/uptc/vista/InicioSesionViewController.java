@@ -26,10 +26,10 @@ public class InicioSesionViewController {
     @FXML private Button btnVolver;
     @FXML private ComboBox<String> comboIdioma;
     @FXML private Hyperlink linkOlvidasteContrasena;
-    @FXML private Button btnAcercaDe;
     @FXML private Button btnAyuda;
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboAccesibilidad;
+    @FXML private Hyperlink linkRegistrarse;
 
     private ReciclajeControlador controlador;
 
@@ -39,10 +39,10 @@ public class InicioSesionViewController {
         cargarLogo();
 
         linkOlvidasteContrasena.setOnAction(e -> mostrarRecuperarContrasena());
-        btnAcercaDe.setOnAction(e -> mostrarAlertaNoImplementado("Acerca de"));
         btnAyuda.setOnAction(e -> mostrarAlertaNoImplementado("Ayuda"));
         btnIniciarSesion.setOnAction(e -> iniciarSesion());
         btnVolver.setOnAction(e -> volverInicio());
+        linkRegistrarse.setOnAction(e -> irARegistro());
 
         comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
         comboAccesibilidad.setValue("Normal");
@@ -74,6 +74,26 @@ public class InicioSesionViewController {
                 break;
             default:
                 mostrarError("Error", "Idioma no soportado");
+        }
+    }
+
+    private void irARegistro() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/registro_view.fxml"),
+                AppContext.getBundle()
+            );
+            Parent root = loader.load();
+            RegistroViewController registroController = loader.getController();
+            registroController.setControlador(controlador);
+    
+            Stage stage = (Stage) linkRegistrarse.getScene().getWindow();
+            stage.setScene(new Scene(root, 1440, 1024));
+            stage.setTitle(AppContext.getBundle().getString("register"));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("Error", "No se pudo cargar la vista de registro");
         }
     }
 

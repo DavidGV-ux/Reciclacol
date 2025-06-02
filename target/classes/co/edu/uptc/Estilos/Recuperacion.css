@@ -121,3 +121,11 @@
     -fx-font-weight: bold;
 }
 
+.label-titulo-combo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #388e3c;
+    -fx-padding: 0 0 6 0;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
+    -fx-alignment: center;
+}

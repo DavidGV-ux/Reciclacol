@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.control.ComboBox?>
 
 <BorderPane prefHeight="580" prefWidth="1000"
@@ -26,6 +25,7 @@
             <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language"/>
         </HBox>
     </top>
+    
     <left>
         <VBox prefWidth="300" spacing="20" style="-fx-background-color: white;">
             <padding>
@@ -41,39 +41,47 @@
             </HBox>
         </VBox>
     </left>
+    
     <center>
         <VBox alignment="CENTER" spacing="24" style="-fx-background-color: white;">
             <padding>
                 <Insets top="20" right="40" bottom="20" left="40"/>
             </padding>
             
-            <!-- Panel para ID y Enviar -->
-            <HBox fx:id="panelEnviarCodigo" spacing="16" alignment="CENTER_LEFT">
-                <Label text="%idLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
-                <TextField fx:id="txtCorreo" prefWidth="300" styleClass="campo-texto"/>
-                <Button fx:id="btnEnviar" text="%send" minWidth="100" styleClass="boton-principal"/>
-            </HBox>
+            <!-- Panel Enviar Código -->
+            <VBox spacing="8">
+                <HBox fx:id="panelEnviarCodigo" spacing="16" alignment="CENTER_LEFT">
+                    <Label text="%idLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
+                    <TextField fx:id="txtDocumento" prefWidth="300" styleClass="campo-texto"/>
+                    <Button fx:id="btnEnviar" text="%send" minWidth="100" styleClass="boton-principal"/>
+                </HBox>
+                <Label fx:id="lblMensajeEnvio" style="-fx-font-size: 16px;"/>
+            </VBox>
             
-            <!-- Panel para Código y Validar -->
-            <HBox fx:id="panelValidarCodigo" spacing="16" alignment="CENTER_LEFT">
-                <Label text="%codeLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
-                <TextField fx:id="txtCodigo" prefWidth="300" styleClass="campo-texto"/>
-                <Button fx:id="btnValidar" text="%validate" minWidth="100" styleClass="boton-principal"/>
-            </HBox>
+            <!-- Panel Validar Código -->
+            <VBox spacing="8">
+                <HBox fx:id="panelValidarCodigo" spacing="16" alignment="CENTER_LEFT">
+                    <Label text="%codeLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
+                    <TextField fx:id="txtCodigo" prefWidth="300" styleClass="campo-texto"/>
+                    <Button fx:id="btnValidar" text="%validate" minWidth="100" styleClass="boton-principal"/>
+                </HBox>
+            </VBox>
             
-            <HBox spacing="16" alignment="CENTER_LEFT" fx:id="panelNuevaContrasena" visible="false">
-                <Label text="%newPasswordLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
-                <PasswordField fx:id="txtNuevaContrasena" prefWidth="300" styleClass="campo-texto"/>
-            </HBox>
-            
-            <HBox spacing="16" alignment="CENTER_LEFT" fx:id="panelConfirmarContrasena" visible="false">
-                <Label text="%confirmPasswordLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
-                <PasswordField fx:id="txtConfirmarContrasena" prefWidth="300" styleClass="campo-texto"/>
-            </HBox>
+            <!-- Panel Nueva Contraseña -->
+            <VBox spacing="8">
+                <HBox fx:id="panelNuevaContrasena" spacing="16" alignment="CENTER_LEFT" visible="false">
+                    <Label text="%newPasswordLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
+                    <PasswordField fx:id="txtNuevaContrasena" prefWidth="300" styleClass="campo-texto"/>
+                </HBox>
+                
+                <HBox fx:id="panelConfirmarContrasena" spacing="16" alignment="CENTER_LEFT" visible="false">
+                    <Label text="%confirmPasswordLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
+                    <PasswordField fx:id="txtConfirmarContrasena" prefWidth="300" styleClass="campo-texto"/>
+                </HBox>
+                <Label fx:id="lblMensajeContrasena" style="-fx-font-size: 16px;"/>
+            </VBox>
             
             <Button fx:id="btnGuardar" text="%save" minWidth="120" styleClass="boton-principal" visible="false"/>
-            
-            <Label fx:id="lblMensaje" style="-fx-text-fill: #d32f2f; -fx-font-size: 20px;"/>
         </VBox>
     </center>
 </BorderPane>

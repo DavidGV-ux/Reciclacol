@@ -69,8 +69,16 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
         <HBox alignment="TOP_RIGHT" spacing="20">
-            <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
-            <ComboBox fx:id="comboIdioma" promptText="%language" prefWidth="160" style="-fx-font-size: 18px;"/>
+            <VBox alignment="CENTER">
+                     <Label text="%accessibility" styleClass="label-titulo-combo"/>
+                     <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
+                  </VBox>
+
+                  <!-- VBox para Idioma -->
+                  <VBox alignment="CENTER">
+                     <Label text="%language" styleClass="label-titulo-combo"/>
+                     <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" style="-fx-font-size: 14px;"/>
+                  </VBox>
         </HBox>
         <Region prefHeight="60"/>
         <Region VBox.vgrow="ALWAYS"/>

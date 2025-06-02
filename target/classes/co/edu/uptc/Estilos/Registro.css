@@ -102,3 +102,17 @@
     -fx-border-radius: 16;
     -fx-background-color: #e8f5e9;
 }
+.label-titulo-combo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #388e3c;
+    -fx-padding: 0 0 6 0;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
+    -fx-alignment: center;
+}
+
+/* Enlace */
+.enlaceConRegistro {
+    -fx-text-fill: #8e3838;
+    -fx-font-size: 18px;
+}

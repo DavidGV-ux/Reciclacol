@@ -114,3 +114,14 @@
     -fx-border-color: #d32f2f !important;
     -fx-border-width: 2px !important;
 }
+
+* Título encima de los ComboBox de accesibilidad e idioma */
+.label-titulo-combo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #388e3c;
+    -fx-padding: 0 0 6 0;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
+    -fx-alignment: center;
+}
+
