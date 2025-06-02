@@ -18,6 +18,7 @@ module co.edu.uptc {
     opens co.edu.uptc to javafx.fxml;
     opens co.edu.uptc.vista to javafx.fxml;
     opens co.edu.uptc.modelo to com.google.gson;
+    opens co.edu.uptc.servicio to com.google.gson;
     exports co.edu.uptc;
     exports co.edu.uptc.vista;
 }

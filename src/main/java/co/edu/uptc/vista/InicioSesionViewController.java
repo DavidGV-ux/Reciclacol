@@ -1,9 +1,12 @@
 package co.edu.uptc.vista;
 
-import java.io.IOException;
 import java.util.ResourceBundle;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import co.edu.uptc.controlador.ReciclajeControlador;
+import co.edu.uptc.servicio.CredencialesRecordadas;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,6 +20,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import java.io.*;
+import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.PasswordField;
 
 public class InicioSesionViewController {
 
@@ -30,6 +38,11 @@ public class InicioSesionViewController {
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboAccesibilidad;
     @FXML private Hyperlink linkRegistrarse;
+    @FXML private CheckBox chkRecordar;
+
+    private static final String RECORDAR_PATH = "proyecto_final_fx/src/main/resources/datos/recordar.json";
+    private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
 
     private ReciclajeControlador controlador;
 
@@ -37,6 +50,11 @@ public class InicioSesionViewController {
     private void initialize() {
         configurarComboIdioma();
         cargarLogo();
+        cargarDatosRecordar();
+        btnVolver.setOnAction(e -> volverInicio());
+        if (controlador == null) {
+            controlador = AppContext.getReciclajeControlador();
+        }
 
         linkOlvidasteContrasena.setOnAction(e -> mostrarRecuperarContrasena());
         btnAyuda.setOnAction(e -> mostrarAlertaNoImplementado("Ayuda"));
@@ -48,6 +66,12 @@ public class InicioSesionViewController {
         comboAccesibilidad.setValue("Normal");
         comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
             aplicarAccesibilidad(newVal);
+        });
+
+        chkRecordar.setOnAction(e -> {
+            if (!chkRecordar.isSelected()) {
+                eliminarDatosRecordar();
+            }
         });
     }
 
@@ -114,7 +138,7 @@ public class InicioSesionViewController {
     }
 
     private void cargarLogo() {
-        String imagePath = "/co/edu/uptc/imagenes/Logo.png";
+        String imagePath = "/co/edu/uptc/imagenes/login.png";
         try {
             Image logoImage = new Image(getClass().getResourceAsStream(imagePath));
             if (logoImage.isError()) {
@@ -128,13 +152,17 @@ public class InicioSesionViewController {
     }
 
     public void setControlador(ReciclajeControlador controlador) {
-        this.controlador = controlador;
-    }
+        if (controlador == null) {
+            this.controlador = AppContext.getReciclajeControlador();
+        } else {
+            this.controlador = controlador;
+        }
+    }    
 
     private void iniciarSesion() {
         String correoID = txtCorreoID.getText().trim();
         String contrasena = pfContrasena.getText();
-
+        
         if (correoID.isEmpty() || contrasena.isEmpty()) {
             mostrarError("Campos vacíos", "Todos los campos son obligatorios");
             return;
@@ -143,22 +171,31 @@ public class InicioSesionViewController {
         boolean exito = controlador.iniciarSesion(correoID, contrasena);
 
         if (exito) {
-            mostrarInfo("Validación exitosa", "Ingresando al sistema...");
+            if (chkRecordar.isSelected()) {
+                guardarDatosRecordar(correoID, contrasena);
+            } else {
+                eliminarDatosRecordar();
+            }
+        
+            // ...ventana de carga y continuar...
             Stage loadingStage = new Stage();
             loadingStage.initModality(javafx.stage.Modality.APPLICATION_MODAL);
             loadingStage.initStyle(javafx.stage.StageStyle.UNDECORATED);
-
+        
             javafx.scene.control.ProgressIndicator progressIndicator = new javafx.scene.control.ProgressIndicator();
             progressIndicator.setPrefSize(100, 100);
-
+        
+            javafx.scene.control.Label mensajeExito = new javafx.scene.control.Label("Inicio exitoso");
+            mensajeExito.setStyle("-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #388e3c; -fx-padding: 14 0 0 0;");
+        
             javafx.scene.layout.VBox loadingVBox = new javafx.scene.layout.VBox(10);
             loadingVBox.setAlignment(javafx.geometry.Pos.CENTER);
             loadingVBox.setPadding(new javafx.geometry.Insets(20));
-            loadingVBox.getChildren().addAll(progressIndicator, new javafx.scene.control.Label("Cargando..."));
-
-            loadingStage.setScene(new javafx.scene.Scene(loadingVBox, 200, 150));
+            loadingVBox.getChildren().addAll(progressIndicator, mensajeExito);
+        
+            loadingStage.setScene(new javafx.scene.Scene(loadingVBox, 240, 160));
             loadingStage.show();
-
+        
             javafx.animation.PauseTransition delay = new javafx.animation.PauseTransition(javafx.util.Duration.seconds(3));
             delay.setOnFinished(event -> {
                 loadingStage.close();
@@ -167,8 +204,8 @@ public class InicioSesionViewController {
             delay.play();
         } else {
             mostrarError("Error de autenticación", "Credenciales incorrectas");
-        }
-    }
+        }        
+    }        
 
     private void mostrarInfo(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -198,7 +235,7 @@ public class InicioSesionViewController {
         }
     }
     
-
+    @FXML
     private void volverInicio() {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -207,15 +244,19 @@ public class InicioSesionViewController {
             );
             Parent root = loader.load();
             InicioViewController inicioController = loader.getController();
-            inicioController.setControlador(controlador);
-
+            inicioController.setControlador(AppContext.getReciclajeControlador());
+            
+    
             Stage stage = (Stage) btnVolver.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
+            stage.setTitle(AppContext.getBundle().getString("welcome"));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
-            mostrarError("Error", "No se pudo cargar la vista de inicio");
+            mostrarError("Error", "No se pudo cargar la vista de inicio de sesión");
         }
     }
+    
 
     private void mostrarError(String titulo, String mensaje) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -264,4 +305,36 @@ public class InicioSesionViewController {
             AccesibilidadViewController.aplicarEstilo(scene, opcion);
         }
     }
+
+    private void guardarDatosRecordar(String usuario, String contrasena) {
+        CredencialesRecordadas datos = new CredencialesRecordadas(usuario, contrasena);
+        try (Writer writer = new FileWriter(RECORDAR_PATH)) {
+            gson.toJson(datos, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+private void eliminarDatosRecordar() {
+    File file = new File(RECORDAR_PATH);
+    if (file.exists()) {
+        file.delete();
+    }
+}
+
+private void cargarDatosRecordar() {
+    File file = new File(RECORDAR_PATH);
+    if (file.exists()) {
+        try (Reader reader = new FileReader(file)) {
+            CredencialesRecordadas datos = gson.fromJson(reader, CredencialesRecordadas.class);
+            if (datos != null) {
+                txtCorreoID.setText(datos.getUsuario());
+                pfContrasena.setText(datos.getContrasena());
+                chkRecordar.setSelected(true);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
 }

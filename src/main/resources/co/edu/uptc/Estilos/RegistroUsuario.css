@@ -1,4 +1,6 @@
-/* Botón principal: verde moderno */
+/* --- Botones principales y circulares --- */
+
+/* Botón principal: verde moderno, usado para "Registrar" */
 .boton-principal {
     -fx-background-color: linear-gradient(to bottom, #81c784, #388e3c);
     -fx-border-color: #2e7d32;
@@ -26,7 +28,7 @@
     -fx-text-fill: #81c784;
 }
 
-/* Botón circular para volver */
+/* Botón circular: volver, ayuda */
 .boton-circular {
     -fx-background-color: transparent;
     -fx-border-color: #388e3c;
@@ -50,7 +52,7 @@
     -fx-text-fill: #388e3c;
 }
 
-/* Campos de texto */
+/* --- Campos de texto (TextField, ComboBox, PasswordField) --- */
 .campo-texto {
     -fx-font-size: 18px;
     -fx-background-radius: 8;
@@ -65,17 +67,7 @@
     -fx-background-color: #d7fac2ea;
 }
 
-/* Enlace */
-.enlace {
-    -fx-text-fill: #388e3c;
-    -fx-font-size: 14px;
-}
-.enlace:hover {
-    -fx-underline: true;
-    -fx-text-fill: #2e7d32;
-}
-
-/* Títulos y textos */
+/* --- Títulos y textos --- */
 .titulo {
     -fx-font-size: 40px;
     -fx-font-weight: bold;
@@ -95,6 +87,8 @@
     -fx-text-fill: #757575;
     -fx-padding: 10 0 0 0;
 }
+
+/* --- Logo panel (borde y fondo del logo) --- */
 .logo-panel {
     -fx-border-color: #388e3c;
     -fx-border-width: 2px;
@@ -102,25 +96,15 @@
     -fx-border-radius: 16;
     -fx-background-color: #e8f5e9;
 }
-/* Mensajes de error */
+
+/* --- Mensajes de error debajo de campos --- */
 .error-mensaje {
     -fx-text-fill: #d32f2f;
     -fx-font-size: 12px;
     -fx-padding: 2 0 0 5;
 }
 
-/* Borde rojo para campos inválidos */
-.campo-invalido {
-    -fx-border-color: #d32f2f !important;
-    -fx-border-width: 2px !important;
-}
-/* Mensajes de éxito */
-.mensaje-exito {
-    -fx-text-fill: #388e3c;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-
+/* --- Título encima de los ComboBox de accesibilidad e idioma --- */
 .label-titulo-combo {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
@@ -128,4 +112,7 @@
     -fx-padding: 0 0 6 0;
     -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
     -fx-alignment: center;
+}
+.enlaceConLogin:hover {
+    -fx-text-fill: #b71c1c;
 }

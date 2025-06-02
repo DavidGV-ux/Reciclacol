@@ -13,6 +13,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import javafx.scene.control.Label;
+
 
 public class InicioViewController {
 
@@ -24,8 +29,21 @@ public class InicioViewController {
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboIdioma;
     @FXML private ComboBox<String> comboAccesibilidad;
+    @FXML private Label lblDatoCurioso;
 
     private ReciclajeControlador controlador;
+    private Timeline timeline;
+    private int indiceActual = 0;
+    
+    private final java.util.List<String> datosCuriosos = java.util.Arrays.asList(
+        "¿Sabías que reciclar una lata de aluminio ahorra energía para 3 horas de TV?",
+        "El vidrio puede reciclarse infinitamente sin perder calidad.",
+        "Reciclar papel salva árboles y ahorra agua/energía.",
+        "1 tonelada de plástico reciclado = 700 kg de petróleo ahorrado.",
+        "Reciclar una botella plástica = energía para un foco de 60W por 6 horas.",
+        "El 75% de la basura es reciclable, pero solo reciclamos el 30%.",
+        "1 tonelada de papel reciclado salva 17 árboles y 26,500 litros de agua."
+    );
 
     public InicioViewController() {}
 
@@ -34,8 +52,6 @@ public class InicioViewController {
         comboIdioma.getItems().addAll("Español", "English");
         comboIdioma.setValue(AppContext.getCurrentLocale().getLanguage().equals("en") ? "English" : "Español");
         btnAcercaDe.setOnAction(e -> handleAcercaDe());
-        
-        // Listener para cambiar idioma automáticamente
         comboIdioma.valueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
                 switch (newVal) {
@@ -60,6 +76,19 @@ public class InicioViewController {
         comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
             aplicarAccesibilidad(newVal);
         });
+
+        // ---- DATO CURIOSO ----
+        if (lblDatoCurioso != null && !datosCuriosos.isEmpty()) {
+            lblDatoCurioso.setText(datosCuriosos.get(0));
+            timeline = new Timeline(
+                new KeyFrame(Duration.seconds(30), e -> {
+                    indiceActual = (indiceActual + 1) % datosCuriosos.size();
+                    lblDatoCurioso.setText(datosCuriosos.get(indiceActual));
+                })
+            );
+            timeline.setCycleCount(Timeline.INDEFINITE);
+            timeline.play();
+        }
     }
 
     private void cargarLogo() {
@@ -154,16 +183,17 @@ public class InicioViewController {
     }
     
         @FXML
-    private void handleAcercaDe() {
-        String titulo = AppContext.getBundle().getString("aboutTitle");
-        String version = AppContext.getBundle().getString("aboutVersion");
-        String licencia = AppContext.getBundle().getString("aboutLicense");
-        String contacto = AppContext.getBundle().getString("aboutContact");
-
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(version);
-        alert.setContentText(licencia + "\n\n" + contacto);
-        alert.showAndWait();
+        private void handleAcercaDe() {
+            String titulo = AppContext.getBundle().getString("aboutTitle");
+            String version = AppContext.getBundle().getString("aboutVersion");
+            String licencia = AppContext.getBundle().getString("aboutLicense");
+            String contacto = AppContext.getBundle().getString("aboutContact");
+    
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(titulo);
+            alert.setHeaderText(version);
+            alert.setContentText(licencia + "\n\n" + contacto);
+            alert.showAndWait();
+        }
     }
-}
+

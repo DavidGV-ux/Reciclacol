@@ -11,12 +11,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.StackPane?>
+
 
 <HBox prefHeight="1024.0" prefWidth="1440.0" spacing="0"
       xmlns="http://javafx.com/javafx/17"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="co.edu.uptc.vista.InicioSesionViewController"
-      stylesheets="@../Estilos/Registro.css">
+      stylesheets="@../Estilos/InicioSesion.css">
     <!-- Panel Izquierdo -->
     <VBox prefWidth="720.0" minWidth="720.0" maxWidth="720.0" spacing="0"
           style="-fx-background-color: white; -fx-border-width:0 2 0 0; -fx-border-color: black;">
@@ -37,14 +39,16 @@
         <Region VBox.vgrow="ALWAYS"/>
         <Label alignment="CENTER" text="%loginTitle" styleClass="titulo"/>
         <Region prefHeight="30"/>
-        <VBox alignment="CENTER" styleClass="logo-panel" prefHeight="320" prefWidth="560">
-             <ImageView fx:id="logoImageView"
-                        fitHeight="400"
-                        fitWidth="400"
+        <VBox alignment="CENTER" styleClass="logo-panel" prefHeight="330" prefWidth="560" spacing="0">
+            <StackPane alignment="CENTER" prefHeight="260" maxHeight="260" minHeight="220">
+                <ImageView fx:id="logoImageView"
+                        fitHeight="220"
+                        fitWidth="220"
                         preserveRatio="true"
-                        style="-fx-effect: dropshadow(gaussian,rgb(255, 255, 255), 20, 0.5, 0, 0);" />
-             <Label text="%slogan"
-                    style="-fx-text-fill:rgb(255, 255, 255); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
+                        style="-fx-effect: dropshadow(gaussian, rgb(43, 141, 14), 20, 0.5, 0, 0);" />
+            </StackPane>
+            <Label text="%slogan"
+                style="-fx-text-fill:rgb(43, 141, 14); -fx-font-size: 16px; -fx-padding: 10 0 0 0;"/>
         </VBox>
         <Region prefHeight="40"/>
         <Region VBox.vgrow="ALWAYS"/>
@@ -58,12 +62,13 @@
                     <Label text="%help" styleClass="texto-volver"/>
                 </VBox>
             <Region prefWidth="40"/>
-            <Label text="%notRegistered" style="-fx-font-size: 18px; -fx-text-fill: #388e3c;"/>
-            <Hyperlink fx:id="linkRegistrarse" text="%registerHere" styleClass="enlaceConRegistro" />
+              <VBox alignment="CENTER">
+                <Label text="%notRegistered" style="-fx-font-size: 18px; -fx-text-fill: #388e3c;"/>
+                <Hyperlink fx:id="linkRegistrarse" text="%registerHere" styleClass="enlaceConRegistro" />  
+            </VBox>
         </HBox>
                 <Region prefHeight="20"/>
     </VBox>
-
     <!-- Panel Derecho -->
     <VBox prefWidth="720.0" minWidth="720.0" maxWidth="720.0" spacing="0"
           alignment="TOP_CENTER"
@@ -95,8 +100,8 @@
         <Region prefHeight="20"/>
         <PasswordField fx:id="pfContrasena" promptText="%passwordPrompt" styleClass="campo-texto"/>
         <Region prefHeight="20"/>
-        <HBox spacing="20" alignment="CENTER_LEFT">
-            <CheckBox text="%remember" style="-fx-font-size: 18px;"/>
+       <HBox spacing="20" alignment="CENTER_LEFT">
+            <CheckBox fx:id="chkRecordar" text="%remember" style="-fx-font-size: 18px;"/>
             <Hyperlink fx:id="linkOlvidasteContrasena" text="%forgotPassword" styleClass="enlace"/>
         </HBox>
         <Region prefHeight="40"/>

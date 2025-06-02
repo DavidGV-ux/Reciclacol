@@ -1,0 +1,9 @@
+.titulo-actualizar {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2b8d0e;
+    -fx-padding: 24 0 24 0;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
+    -fx-background-color: transparent;
+}

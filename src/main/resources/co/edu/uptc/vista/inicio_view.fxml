@@ -46,10 +46,12 @@
                   </VBox>
                </center>
             </BorderPane>
+            <!-- Cuadro de dato curioso con el fx:id -->
             <BorderPane prefHeight="320"
                         style="-fx-border-color: #4caf50; -fx-border-width: 2px; -fx-background-radius: 10; -fx-background-color: #f1f8e9;">
                <center>
-                  <Label text="%fact"
+                  <Label fx:id="lblDatoCurioso"
+                         text="%fact"
                          BorderPane.alignment="CENTER"
                          wrapText="true"
                          style="-fx-text-fill: #33691e; -fx-font-size: 18px; -fx-padding: 20;"/>

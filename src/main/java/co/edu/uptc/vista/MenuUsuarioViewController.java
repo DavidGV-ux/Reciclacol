@@ -1,6 +1,7 @@
 package co.edu.uptc.vista;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
 import javafx.fxml.FXML;
@@ -42,7 +43,7 @@ public class MenuUsuarioViewController implements Internacionalizable{
         configurarComboIdioma();
         cargarLogo();
 
-        btnInicio.setOnAction(e -> cerrarSesion());
+        btnInicio.setOnAction(e -> confirmarCerrarSesion());
         btnAyuda.setOnAction(e -> mostrarAyuda());
         btnRegistrarResiduos.setOnAction(e -> mostrarRegistrarResiduos());
         btnListarResiduos.setOnAction(e -> mostrarListarResiduos());
@@ -137,7 +138,7 @@ public class MenuUsuarioViewController implements Internacionalizable{
     
 
     private void cargarLogo() {
-        String imagePath = "/co/edu/uptc/imagenes/Logo.png";
+        String imagePath = "/co/edu/uptc/imagenes/opciones.png";
         try {
             Image logoImage = new Image(getClass().getResourceAsStream(imagePath));
             if (logoImage.isError()) {
@@ -180,35 +181,38 @@ public class MenuUsuarioViewController implements Internacionalizable{
             mostrarError("Error al cargar el menú principal");
         }
     }
-    
-    
-    private void cerrarSesion() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle(AppContext.getBundle().getString("login"));
-        alert.setHeaderText(AppContext.getBundle().getString("help"));
-        alert.setContentText(AppContext.getBundle().getString("fact"));
 
-        if (alert.showAndWait().get() == ButtonType.OK) {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"),
-                    AppContext.getBundle()
-                );
-                Parent root = loader.load();
+    @FXML
+private void confirmarCerrarSesion() {
+    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+    alert.setTitle(AppContext.getBundle().getString("home")); // Título de la ventana
+    alert.setHeaderText(null);
+    alert.setContentText(AppContext.getBundle().getString("cerrarSesionConfirm")); // Mensaje del properties
 
-                InicioViewController controller = loader.getController();
-                controller.setControlador(controlador);
-
-                Scene scene = new Scene(root, 1440, 1024);
-                Stage stage = (Stage) btnInicio.getScene().getWindow();
-                stage.setScene(scene);
-                stage.setTitle(AppContext.getBundle().getString("welcome"));
-            } catch (Exception e) {
-                e.printStackTrace();
-                mostrarError("Error al cerrar sesión");
-            }
-        }
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        cerrarSesionYVolverInicio();
     }
+}
+
+private void cerrarSesionYVolverInicio() {
+    try {
+        FXMLLoader loader = new FXMLLoader(
+            getClass().getResource("/co/edu/uptc/vista/inicio_view.fxml"),
+            AppContext.getBundle()
+        );
+        Parent root = loader.load();
+        Stage stage = (Stage) btnInicio.getScene().getWindow();
+        stage.setScene(new Scene(root, 1440, 1024));
+        stage.setTitle(AppContext.getBundle().getString("welcome"));
+        stage.show();
+        // Aquí puedes limpiar los datos de sesión si es necesario
+    } catch (Exception e) {
+        e.printStackTrace();
+        mostrarError("Error al cerrar sesión");
+    }
+}
+
 
     private void mostrarRegistrarResiduos() {
         try {

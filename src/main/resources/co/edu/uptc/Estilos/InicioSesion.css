@@ -1,4 +1,4 @@
-/* Botón principal: verde moderno */
+/* --- Botón principal: verde moderno (Iniciar Sesión) --- */
 .boton-principal {
     -fx-background-color: linear-gradient(to bottom, #81c784, #388e3c);
     -fx-border-color: #2e7d32;
@@ -26,7 +26,7 @@
     -fx-text-fill: #81c784;
 }
 
-/* Botón circular para volver */
+/* --- Botón circular: volver, ayuda --- */
 .boton-circular {
     -fx-background-color: transparent;
     -fx-border-color: #388e3c;
@@ -50,7 +50,7 @@
     -fx-text-fill: #388e3c;
 }
 
-/* Campos de texto */
+/* --- Campos de texto (TextField, PasswordField) --- */
 .campo-texto {
     -fx-font-size: 18px;
     -fx-background-radius: 8;
@@ -65,7 +65,7 @@
     -fx-background-color: #d7fac2ea;
 }
 
-/* Enlace */
+/* --- Enlaces (olvidaste contraseña) --- */
 .enlace {
     -fx-text-fill: #388e3c;
     -fx-font-size: 14px;
@@ -75,7 +75,17 @@
     -fx-text-fill: #2e7d32;
 }
 
-/* Títulos y textos */
+/* --- Enlace destacado para registro --- */
+.enlaceConRegistro {
+    -fx-text-fill: #8e3838;
+    -fx-font-size: 18px;
+    -fx-underline: true;
+}
+.enlaceConRegistro:hover {
+    -fx-text-fill: #b71c1c;
+}
+
+/* --- Títulos y textos --- */
 .titulo {
     -fx-font-size: 40px;
     -fx-font-weight: bold;
@@ -95,6 +105,8 @@
     -fx-text-fill: #757575;
     -fx-padding: 10 0 0 0;
 }
+
+/* --- Logo panel (borde y fondo del logo) --- */
 .logo-panel {
     -fx-border-color: #388e3c;
     -fx-border-width: 2px;
@@ -102,6 +114,8 @@
     -fx-border-radius: 16;
     -fx-background-color: #e8f5e9;
 }
+
+/* --- Título encima de los ComboBox de accesibilidad e idioma --- */
 .label-titulo-combo {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
@@ -109,10 +123,4 @@
     -fx-padding: 0 0 6 0;
     -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
     -fx-alignment: center;
-}
-
-/* Enlace */
-.enlaceConRegistro {
-    -fx-text-fill: #8e3838;
-    -fx-font-size: 18px;
 }

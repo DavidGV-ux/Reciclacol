@@ -1,20 +1,20 @@
-/* Botón principal: verde moderno */
+/* --- Botón principal: verde moderno (Enviar, Validar, Guardar) --- */
 .boton-principal {
     -fx-background-color: linear-gradient(to bottom, #81c784, #388e3c);
     -fx-border-color: #2e7d32;
     -fx-border-width: 2px;
     -fx-text-fill: white;
-    -fx-font-size: 20px;
+    -fx-font-size: 18px;
     -fx-font-weight: bold;
     -fx-background-radius: 12;
     -fx-border-radius: 12;
-    -fx-padding: 12 0 12 0;
+    -fx-padding: 10 0 10 0;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, #a5d6a7, 7, 0.2, 0, 2);
-    -fx-min-width: 240;
-    -fx-max-width: 320;
-    -fx-min-height: 48;
-    -fx-max-height: 60;
+    -fx-effect: dropshadow(gaussian, #a5d6a7, 5, 0.2, 0, 2);
+    -fx-min-width: 100px;
+    -fx-max-width: 200px;
+    -fx-min-height: 40px;
+    -fx-max-height: 60px;
     -fx-transition: all 0.3s;
 }
 .boton-principal:hover {
@@ -26,7 +26,7 @@
     -fx-text-fill: #81c784;
 }
 
-/* Botón circular para volver */
+/* --- Botón circular para volver --- */
 .boton-circular {
     -fx-background-color: transparent;
     -fx-border-color: #388e3c;
@@ -50,7 +50,7 @@
     -fx-text-fill: #388e3c;
 }
 
-/* Campos de texto */
+/* --- Campos de texto (TextField, PasswordField) --- */
 .campo-texto {
     -fx-font-size: 18px;
     -fx-background-radius: 8;
@@ -65,63 +65,26 @@
     -fx-background-color: #d7fac2ea;
 }
 
-/* Enlace */
-.enlace {
+/* --- Título principal --- */
+.titulo {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
     -fx-text-fill: #388e3c;
-    -fx-font-size: 14px;
-}
-.enlace:hover {
-    -fx-underline: true;
-    -fx-text-fill: #2e7d32;
 }
 
-/* Títulos y textos */
-.titulo {
-    -fx-font-size: 40px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #388e3c;
-}
-.bienvenida {
-    -fx-font-size: 26px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #388e3c;
-}
+/* --- Texto de volver --- */
 .texto-volver {
     -fx-font-size: 16px;
     -fx-text-fill: #388e3c;
 }
-.subtitulo-logo {
-    -fx-font-size: 18px;
-    -fx-text-fill: #757575;
-    -fx-padding: 10 0 0 0;
-}
-.logo-panel {
-    -fx-border-color: #388e3c;
-    -fx-border-width: 2px;
-    -fx-background-radius: 16;
-    -fx-border-radius: 16;
-    -fx-background-color: #e8f5e9;
-}
-/* Mensajes de error */
-.error-mensaje {
+
+/* --- Mensajes de error y éxito --- */
+.error-mensaje, .lblMensajeEnvio, .lblMensajeContrasena {
     -fx-text-fill: #d32f2f;
-    -fx-font-size: 12px;
-    -fx-padding: 2 0 0 5;
+    -fx-font-size: 16px;
 }
-
-/* Borde rojo para campos inválidos */
-.campo-invalido {
-    -fx-border-color: #d32f2f !important;
-    -fx-border-width: 2px !important;
-}
-
-* Título encima de los ComboBox de accesibilidad e idioma */
-.label-titulo-combo {
-    -fx-font-size: 15px;
-    -fx-font-weight: bold;
+.mensaje-exito {
     -fx-text-fill: #388e3c;
-    -fx-padding: 0 0 6 0;
-    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
-    -fx-alignment: center;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
 }
-

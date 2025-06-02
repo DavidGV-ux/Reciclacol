@@ -42,7 +42,7 @@
     "puntosEcologicos": 0
   },
   "999999": {
-    "primerNombre": "lis",
+    "primerNombre": "Lis",
     "segundoNombre": "Gomita",
     "primerApellido": "Ramirez",
     "segundoApellido": "Cardona",
@@ -107,7 +107,7 @@
     "primerNombre": "Bambi",
     "primerApellido": "Mendivelso",
     "identificacion": "1054282604",
-    "contrasena": "maxiteamo",
+    "contrasena": "12345",
     "direccion": "",
     "correo": "mia007332@gmail.com",
     "telefono": 122222,
@@ -166,6 +166,19 @@
     "direccion": "",
     "correo": "lll@gmail.com",
     "telefono": 121112,
+    "residuos": [],
+    "puntosEcologicos": 0
+  },
+  "000": {
+    "primerNombre": "Testeo",
+    "segundoNombre": "User",
+    "primerApellido": "Ejemplo",
+    "segundoApellido": "Progra",
+    "identificacion": "000",
+    "contrasena": "1234",
+    "direccion": "",
+    "correo": "mia007332@gmail.com",
+    "telefono": 12345678,
     "residuos": [],
     "puntosEcologicos": 0
   }

@@ -19,6 +19,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.text.Text;
+
 
 public class RegistroViewController {
 
@@ -53,6 +60,7 @@ public class RegistroViewController {
     @FXML private Label lblErrorConfirmarContrasena;
     @FXML private Label lblErrorTerminos;
     @FXML private ComboBox<String> comboAccesibilidad;
+    @FXML private Hyperlink linkLogin;
 
     private ReciclajeControlador controlador;
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
@@ -68,12 +76,24 @@ public class RegistroViewController {
         btnRegistrar.setOnAction(e -> registrarUsuario());
         btnInicio.setOnAction(e -> volverInicio());
         btnAyuda.setOnAction(e -> mostrarAyuda());
+        linkLogin.setOnAction(e -> irALogin());
 
         comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
         comboAccesibilidad.setValue("Normal");
         comboAccesibilidad.valueProperty().addListener((obs, oldVal, newVal) -> {
             aplicarAccesibilidad(newVal);
         });
+
+        chkTerminos.setAllowIndeterminate(false);
+            chkTerminos.setSelected(false);
+
+            chkTerminos.setOnAction(e -> {
+                if (chkTerminos.isSelected()) {
+                    boolean aceptado = mostrarTerminosYCondiciones();
+                    chkTerminos.setSelected(aceptado);
+    }
+});
+
     }
 
     private void configurarIdiomas() {
@@ -120,7 +140,7 @@ public class RegistroViewController {
 
     private void cargarLogo() {
         try {
-            Image logoImage = new Image(getClass().getResourceAsStream("/co/edu/uptc/imagenes/Logo.png"));
+            Image logoImage = new Image(getClass().getResourceAsStream("/co/edu/uptc/imagenes/registro.png"));
             logoImageView.setImage(logoImage);
         } catch (Exception e) {
             System.err.println("No se pudo cargar la imagen del logo");
@@ -314,5 +334,58 @@ public class RegistroViewController {
         }
     }
 
+    private boolean mostrarTerminosYCondiciones() {
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Términos y Condiciones");
+        dialog.setHeaderText("Por favor lee y acepta los términos y condiciones para continuar.");
     
+        String terminos =
+            "1. Uso adecuado: El usuario se compromete a utilizar la aplicación solo con fines legales y conforme a las normas aplicables.\n\n" +
+            "2. Propiedad intelectual: Todos los contenidos, logotipos y marcas son propiedad de la aplicación y están protegidos por la ley.\n\n" +
+            "3. Limitación de responsabilidad: La aplicación no se hace responsable por daños derivados del uso o imposibilidad de uso del sistema.\n\n" +
+            "4. Modificaciones: Nos reservamos el derecho de modificar estos términos en cualquier momento. El uso continuado implica aceptación de los cambios.\n\n" +
+            "5. Privacidad: Los datos personales serán tratados conforme a la política de privacidad publicada.\n\n" +
+            "6. Ley aplicable: Estos términos se rigen por las leyes de Colombia.\n\n" +
+            "Al hacer clic en 'Aceptar', reconoces haber leído y aceptado estos términos y condiciones.";
+    
+        Text textoTerminos = new Text(terminos);
+        textoTerminos.setWrappingWidth(450);
+    
+        ScrollPane scroll = new ScrollPane(textoTerminos);
+        scroll.setPrefSize(480, 260);
+        scroll.setFitToWidth(true);
+    
+        VBox content = new VBox(scroll);
+        content.setPadding(new javafx.geometry.Insets(10));
+        dialog.getDialogPane().setContent(content);
+    
+        ButtonType btnAceptar = new ButtonType("Aceptar", ButtonData.OK_DONE);
+        ButtonType btnCancelar = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().setAll(btnAceptar, btnCancelar);
+    
+        dialog.setResizable(true);
+    
+        ButtonType result = dialog.showAndWait().orElse(btnCancelar);
+        return result == btnAceptar;
+    }    
+
+    private void irALogin() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/inicio_sesion_view.fxml"),
+                AppContext.getBundle()
+            );
+            Parent root = loader.load();
+            InicioSesionViewController inicioSesionController = loader.getController();
+            inicioSesionController.setControlador(controlador);
+    
+            Stage stage = (Stage) linkLogin.getScene().getWindow();
+            stage.setScene(new Scene(root, 1440, 1024));
+            stage.setTitle(AppContext.getBundle().getString("register"));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("Error", "No se pudo cargar la vista de registro");
+        }
+    }
 }

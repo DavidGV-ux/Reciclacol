@@ -13,7 +13,7 @@
             xmlns="http://javafx.com/javafx/17"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="co.edu.uptc.vista.RecuperarContrasenaViewController"
-            stylesheets="@../Estilos/RegistroU.css">
+            stylesheets="@../Estilos/RecuperarContrasena.css">
 
     <top>
         <HBox alignment="CENTER_RIGHT" spacing="10">
@@ -32,12 +32,14 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             <HBox alignment="TOP_LEFT" spacing="10">
+                 <VBox alignment="CENTER">
                 <Button fx:id="btnInicio" styleClass="boton-circular">
                     <graphic>
-                        <Label text="✖" styleClass="icono-cerrar"/>
+                        <Label text="🏠" styleClass="icono-cerrar"/>
                     </graphic>
                 </Button>
                 <Label text="%home" styleClass="texto-volver"/>
+            </VBox>
             </HBox>
         </VBox>
     </left>
