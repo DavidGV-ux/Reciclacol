@@ -28,12 +28,14 @@
             <Insets top="40" right="40" bottom="40" left="40"/>
         </padding>
         <HBox alignment="TOP_LEFT" spacing="10">
-            <Button fx:id="btnInicio" styleClass="boton-circular">
-                <graphic>
-                    <Label text="✖" styleClass="icono-cerrar"/>
-                </graphic>
-            </Button>
-            <Label text="%inicio" styleClass="texto-volver"/>
+             <VBox alignment="CENTER">
+                <Button fx:id="btnInicio" styleClass="boton-circular">
+                    <graphic>
+                        <Label text="🏠" styleClass="icono-cerrar"/>
+                    </graphic>
+                </Button>
+                <Label text="%inicio" styleClass="texto-volver"/>
+            </VBox>
         </HBox>
         <Region prefHeight="60"/>
         <Region VBox.vgrow="ALWAYS"/>
@@ -51,12 +53,14 @@
         <Region prefHeight="40"/>
         <Region VBox.vgrow="ALWAYS"/>
         <HBox alignment="BOTTOM_LEFT" spacing="10">
-            <Button fx:id="btnAyuda" styleClass="boton-circular">
-                <graphic>
-                    <Label text="✖" styleClass="icono-cerrar"/>
-                </graphic>
-            </Button>
-            <Label text="%help" styleClass="texto-volver"/>
+            <VBox alignment="CENTER">
+                    <Button fx:id="btnAyuda" styleClass="boton-circular">
+                        <graphic>
+                            <Label text="❓" styleClass="icono-cerrar"/>
+                        </graphic>
+                    </Button>
+                    <Label text="%help" styleClass="texto-volver"/>
+            </VBox>
         </HBox>
         <Region prefHeight="20"/>
     </VBox>

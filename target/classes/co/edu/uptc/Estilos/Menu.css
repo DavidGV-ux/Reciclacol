@@ -148,6 +148,60 @@
 
 /* Etiqueta interna de los botones de opciones */
 .opcion-boton-label {
-    -fx-font-size: 28px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
 }
+
+.label-titulo-combo {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #388e3c;
+    -fx-padding: 0 0 6 0;
+    -fx-effect: dropshadow(gaussian, #c8e6c9, 2, 0.2, 0, 1);
+    -fx-alignment: center;
+}
+
+.barra-gradiente-horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 12 0 12 0;
+}
+.barra-gradiente-horizontal .line {
+    -fx-background-color: linear-gradient(to right, #43a047, #a5d6a7);
+    -fx-pref-height: 4;
+    -fx-max-height: 4;
+    -fx-min-height: 4;
+    -fx-background-radius: 2;
+}
+
+.barra-gradiente-vertical-central {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+.barra-gradiente-vertical-central .line {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #a5d6a7);
+    -fx-pref-width: 8;
+    -fx-max-width: 8;
+    -fx-min-width: 8;
+    -fx-background-radius: 4;
+}
+
+/* Fondo verde claro para el panel izquierdo */
+.panel-izquierdo {
+    -fx-background-color: linear-gradient(to bottom, #e8f5e9, #c8e6c9 65%, #a5d6a7 100%);
+}
+
+/* Línea vertical gradiente central */
+.barra-gradiente-vertical-central {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+.barra-gradiente-vertical-central .line {
+    -fx-background-color: linear-gradient(to bottom, #43a047, #a5d6a7);
+    -fx-pref-width: 8;
+    -fx-max-width: 8;
+    -fx-min-width: 8;
+    -fx-background-radius: 4;
+}
+
+
+
