@@ -41,6 +41,7 @@ public class RecuperarContrasenaViewController {
     private String identificacionActual;
     private String correoActual;
     private ResourceBundle bundle;
+    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     @FXML
     private void initialize() {
@@ -232,4 +233,6 @@ public class RecuperarContrasenaViewController {
         }
         return "***" + dominio;
     }
+
+    
 }

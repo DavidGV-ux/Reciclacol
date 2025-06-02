@@ -43,21 +43,21 @@ public class ReciclajeServicio {
 		}
 	}
 
-	private void cargarDatosDesdeJson() {
-		File file = new File("proyecto_final_fx/src/main/resources/datos/residuos.json");
-		if (file.exists()) {
-			try (Reader reader = new FileReader(file)) {
-				Gson gson = new Gson();
-				Map<String, Usuario> data = gson.fromJson(reader, new TypeToken<Map<String, Usuario>>() {
-				}.getType());
-				if (data != null) {
-					this.usuarios = data;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-	}
+	public void cargarDatosDesdeJson() {
+        File file = new File("proyecto_final_fx/src/main/resources/datos/residuos.json");
+        if (file.exists()) {
+            try (Reader reader = new FileReader(file)) {
+                Gson gson = new Gson();
+                Map<String, Usuario> data = gson.fromJson(reader, new TypeToken<Map<String, Usuario>>() {
+                }.getType());
+                if (data != null) {
+                    this.usuarios = data;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 	public String listarResiduosDesdeJson() {
 		if (usuarios.isEmpty()) {
@@ -92,6 +92,14 @@ public class ReciclajeServicio {
 		ReporteServicio reporte = new ReporteServicio(this);
 		reporte.generarReportePersonalizado(ruta); // Debes crear este método en ReporteServicio
 	}
-	
+
+	public Usuario obtenerUsuarioPorCorreo(String correo) {
+		for (Usuario usuario : obtenerTodosLosUsuarios()) { // Ajusta según cómo almacenes los usuarios
+			if (usuario.getCorreo().equalsIgnoreCase(correo)) {
+				return usuario;
+			}
+		}
+		return null;
+	}	
 
 }

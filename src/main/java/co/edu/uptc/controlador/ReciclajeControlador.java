@@ -145,4 +145,28 @@ public class ReciclajeControlador {
     public void guardarCambios() {
         servicio.guardarResiduosEnJson();
     }
+
+    /**
+ * Verifica si ya existe un usuario registrado con el correo dado.
+ * @param correo Correo electrónico a verificar.
+ * @return true si el correo ya está registrado, false en caso contrario.
+ */
+public boolean existeCorreo(String correo) {
+    return servicio.obtenerUsuarioPorCorreo(correo) != null;
+}
+
+/**
+ * Verifica si ya existe un usuario registrado con el número de documento dado.
+ * @param numeroDocumento Número de documento a verificar.
+ * @return true si el número de documento ya está registrado, false en caso contrario.
+ */
+public boolean existeNumeroDocumento(String numeroDocumento) {
+    return servicio.obtenerUsuario(numeroDocumento) != null;
+}
+
+public void recargarUsuariosDesdeJson() {
+    servicio.cargarDatosDesdeJson();
+}
+
+
 }

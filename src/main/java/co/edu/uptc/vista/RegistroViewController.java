@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.text.Text;
+import javafx.scene.control.Tooltip;
 
 
 public class RegistroViewController {
@@ -46,6 +47,7 @@ public class RegistroViewController {
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboIdioma;
     @FXML private Hyperlink acceptTerms;
+    @FXML private Label lblPasswordHelp;
 
     // Labels de error para cada campo
     @FXML private Label lblErrorPrimerNombre;
@@ -62,8 +64,10 @@ public class RegistroViewController {
     @FXML private ComboBox<String> comboAccesibilidad;
     @FXML private Hyperlink linkLogin;
 
+
     private ReciclajeControlador controlador;
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     @FXML
     private void initialize() {
@@ -93,6 +97,10 @@ public class RegistroViewController {
                     chkTerminos.setSelected(aceptado);
     }
 });
+
+        String passwordTooltip = AppContext.getBundle().getString("password.tooltip");
+        Tooltip tooltip = new Tooltip(passwordTooltip);
+        Tooltip.install(lblPasswordHelp, tooltip);
 
     }
 
@@ -155,8 +163,7 @@ public class RegistroViewController {
     private void registrarUsuario() {
         resetErrores();
         boolean valido = true;
-
-        
+    
         String primerNombre = txtPrimerNombre.getText().trim();
         String segundoNombre = txtSegundoNombre.getText().trim();
         String primerApellido = txtPrimerApellido.getText().trim();
@@ -167,88 +174,90 @@ public class RegistroViewController {
         String correo = txtCorreo.getText().trim();
         String contrasena = pfContrasena.getText();
         String confirmarContrasena = pfConfirmarContrasena.getText();
-
+    
         // Validaciones
         if (primerNombre.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarNombre(primerNombre)) {
-            marcarError(txtPrimerNombre, lblErrorPrimerNombre, "Nombre inválido (solo letras)");
+            marcarError(txtPrimerNombre, lblErrorPrimerNombre, AppContext.getBundle().getString("invalidFirstName"));
             valido = false;
         }
         if (!segundoNombre.isEmpty() && !co.edu.uptc.util.ValidadorEntrada.validarNombre(segundoNombre)) {
-            marcarError(txtSegundoNombre, lblErrorSegundoNombre, "Nombre inválido (solo letras)");
+            marcarError(txtSegundoNombre, lblErrorSegundoNombre, AppContext.getBundle().getString("invalidSecondName"));
             valido = false;
         }
         if (primerApellido.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarNombre(primerApellido)) {
-            marcarError(txtPrimerApellido, lblErrorPrimerApellido, "Apellido inválido");
+            marcarError(txtPrimerApellido, lblErrorPrimerApellido, AppContext.getBundle().getString("invalidFirstSurname"));
             valido = false;
         }
         if (!segundoApellido.isEmpty() && !co.edu.uptc.util.ValidadorEntrada.validarNombre(segundoApellido)) {
-            marcarError(txtSegundoApellido, lblErrorSegundoApellido, "Apellido inválido");
+            marcarError(txtSegundoApellido, lblErrorSegundoApellido, AppContext.getBundle().getString("invalidSecondSurname"));
             valido = false;
         }
         if (tipoDocumento == null || tipoDocumento.isEmpty()) {
-            marcarError(comboTipoDocumento, lblErrorTipoDocumento, "Seleccione un tipo de documento");
+            marcarError(comboTipoDocumento, lblErrorTipoDocumento, AppContext.getBundle().getString("selectDocumentType"));
             valido = false;
         }
         if (numeroDocumento.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarIdentificacion(numeroDocumento)) {
-            marcarError(txtNumeroDocumento, lblErrorNumeroDocumento, "Documento inválido");
+            marcarError(txtNumeroDocumento, lblErrorNumeroDocumento, AppContext.getBundle().getString("invalidDocument"));
             valido = false;
         }
         if (telefonoStr.isEmpty() || !co.edu.uptc.util.ValidadorEntrada.validarTelefono(telefonoStr)) {
-            marcarError(txtTelefono, lblErrorTelefono, "Teléfono inválido (solo números)");
+            marcarError(txtTelefono, lblErrorTelefono, AppContext.getBundle().getString("invalidPhone"));
             valido = false;
         }
-        if (correo.isEmpty()) {
-            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailRequired"));
-            valido = false;
-        } else if (correo.contains(" ")) {
-            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailNoSpaces"));
-            valido = false;
-        } else if (!correo.matches(EMAIL_REGEX)) {
-            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailInvalid"));
-            valido = false;
-        }
-        if (contrasena.length() < 4) {
-            marcarError(pfContrasena, lblErrorContrasena, "Mínimo 4 caracteres");
+        if (!contrasena.matches(PASSWORD_REGEX)) {
+            marcarError(pfContrasena, lblErrorContrasena, AppContext.getBundle().getString("passwordInvalid"));
             valido = false;
         }
         if (!contrasena.equals(confirmarContrasena)) {
-            marcarError(pfConfirmarContrasena, lblErrorConfirmarContrasena, "Las contraseñas no coinciden");
+            marcarError(pfConfirmarContrasena, lblErrorConfirmarContrasena, AppContext.getBundle().getString("passwordsNoMatch"));
             valido = false;
         }
         if (!chkTerminos.isSelected()) {
-            lblErrorTerminos.setText("Debe aceptar los términos y condiciones");
+            lblErrorTerminos.setText(AppContext.getBundle().getString("mustAcceptTerms"));
             lblErrorTerminos.setVisible(true);
             valido = false;
         }
-
-        if (!valido) return;
-
-        int telefono;
+        if (controlador.existeCorreo(correo)) {
+            marcarError(txtCorreo, lblErrorCorreo, AppContext.getBundle().getString("emailRegistered"));
+            valido = false;
+        }
+        if (controlador.existeNumeroDocumento(numeroDocumento)) {
+            marcarError(txtNumeroDocumento, lblErrorNumeroDocumento, AppContext.getBundle().getString("documentRegistered"));
+            valido = false;
+        }
+    
+        int telefono = 0;
         try {
             telefono = Integer.parseInt(telefonoStr);
         } catch (NumberFormatException ex) {
-            marcarError(txtTelefono, lblErrorTelefono, "Teléfono debe ser numérico");
+            marcarError(txtTelefono, lblErrorTelefono, AppContext.getBundle().getString("phoneMustBeNumeric"));
             return;
         }
-
-        boolean exito = controlador.agregarUsuario(
-                primerNombre,
-                segundoNombre.isEmpty() ? null : segundoNombre,
-                primerApellido,
-                segundoApellido.isEmpty() ? null : segundoApellido,
-                numeroDocumento,
-                "", // Dirección opcional
-                correo,
-                contrasena,
-                telefono);
-
-        if (exito) {
-            mostrarInfo("Usuario registrado exitosamente.");
-            volverInicio();
+    
+        if (!valido) return;
+    
+        // Registro del usuario
+        boolean registrado = controlador.agregarUsuario(
+            primerNombre,
+            segundoNombre,
+            primerApellido,
+            segundoApellido,
+            numeroDocumento,
+            "", // dirección, si tienes el campo, cámbialo aquí
+            correo,
+            contrasena,
+            telefono
+        );
+    
+        if (registrado) {
+            controlador.recargarUsuariosDesdeJson(); // <--- ¡Clave!
+            mostrarInfo(AppContext.getBundle().getString("registerSuccess"));
+            irALogin();
         } else {
-            mostrarError("Error al registrar usuario. Puede que la identificación ya exista.");
+            mostrarError(AppContext.getBundle().getString("registerFailed"));
         }
     }
+    
 
     private void resetErrores() {
         limpiarError(txtPrimerNombre, lblErrorPrimerNombre);
@@ -336,17 +345,11 @@ public class RegistroViewController {
 
     private boolean mostrarTerminosYCondiciones() {
         Dialog<ButtonType> dialog = new Dialog<>();
-        dialog.setTitle("Términos y Condiciones");
-        dialog.setHeaderText("Por favor lee y acepta los términos y condiciones para continuar.");
+        dialog.setTitle(AppContext.getBundle().getString("terms.title"));
+        dialog.setHeaderText(AppContext.getBundle().getString("terms.header"));
     
-        String terminos =
-            "1. Uso adecuado: El usuario se compromete a utilizar la aplicación solo con fines legales y conforme a las normas aplicables.\n\n" +
-            "2. Propiedad intelectual: Todos los contenidos, logotipos y marcas son propiedad de la aplicación y están protegidos por la ley.\n\n" +
-            "3. Limitación de responsabilidad: La aplicación no se hace responsable por daños derivados del uso o imposibilidad de uso del sistema.\n\n" +
-            "4. Modificaciones: Nos reservamos el derecho de modificar estos términos en cualquier momento. El uso continuado implica aceptación de los cambios.\n\n" +
-            "5. Privacidad: Los datos personales serán tratados conforme a la política de privacidad publicada.\n\n" +
-            "6. Ley aplicable: Estos términos se rigen por las leyes de Colombia.\n\n" +
-            "Al hacer clic en 'Aceptar', reconoces haber leído y aceptado estos términos y condiciones.";
+        String terminos = AppContext.getBundle().getString("terms.content")
+            .replace("\\n", "\n"); // Para mostrar saltos de línea correctamente
     
         Text textoTerminos = new Text(terminos);
         textoTerminos.setWrappingWidth(450);
@@ -359,8 +362,8 @@ public class RegistroViewController {
         content.setPadding(new javafx.geometry.Insets(10));
         dialog.getDialogPane().setContent(content);
     
-        ButtonType btnAceptar = new ButtonType("Aceptar", ButtonData.OK_DONE);
-        ButtonType btnCancelar = new ButtonType("Cancelar", ButtonData.CANCEL_CLOSE);
+        ButtonType btnAceptar = new ButtonType(AppContext.getBundle().getString("terms.accept"), ButtonData.OK_DONE);
+        ButtonType btnCancelar = new ButtonType(AppContext.getBundle().getString("terms.cancel"), ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().setAll(btnAceptar, btnCancelar);
     
         dialog.setResizable(true);

@@ -138,16 +138,19 @@
         <HBox spacing="16" alignment="CENTER">
             <VBox>
                 <Label fx:id="lblErrorContrasena" styleClass="error-mensaje" visible="false"/>
-                <PasswordField fx:id="pfContrasena" promptText="%passwordPrompt" styleClass="campo-texto" prefWidth="260"/>
+                <HBox alignment="CENTER_LEFT" spacing="4">
+                    <Label fx:id="lblPasswordHelp" text="?" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #388e3c; -fx-cursor: hand;" />
+                    <PasswordField fx:id="pfContrasena" promptText="%passwordPrompt" styleClass="campo-texto" prefWidth="230"/>
+                </HBox>
             </VBox>
             <VBox>
                 <Label fx:id="lblErrorConfirmarContrasena" styleClass="error-mensaje" visible="false"/>
-                <PasswordField fx:id="pfConfirmarContrasena" promptText="%confirmPasswordPrompt" styleClass="campo-texto" prefWidth="180"/>
+                <PasswordField fx:id="pfConfirmarContrasena" promptText="%confirmPasswordPrompt" styleClass="campo-texto" prefWidth="230"/>
             </VBox>
         </HBox>
         <Region prefHeight="10"/>
         <HBox spacing="10" alignment="CENTER_LEFT">
-            <CheckBox fx:id="chkTerminos" text="Acepto términos y condiciones"/>
+            <CheckBox fx:id="chkTerminos" text="%acceptTerms"/>
         </HBox>
                 <Label fx:id="lblErrorTerminos" styleClass="error-mensaje" visible="false"/>
         <Region prefHeight="20"/>

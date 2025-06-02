@@ -107,7 +107,7 @@
     "primerNombre": "Bambi",
     "primerApellido": "Mendivelso",
     "identificacion": "1054282604",
-    "contrasena": "12345",
+    "contrasena": "yei",
     "direccion": "",
     "correo": "mia007332@gmail.com",
     "telefono": 122222,
@@ -181,5 +181,37 @@
     "telefono": 12345678,
     "residuos": [],
     "puntosEcologicos": 0
+  },
+  "22222": {
+    "primerNombre": "Carlos",
+    "segundoNombre": "Ayala",
+    "primerApellido": "Torbez",
+    "segundoApellido": "Jimenez",
+    "identificacion": "22222",
+    "contrasena": "platanoQueso22!",
+    "direccion": "",
+    "correo": "sggames1114@gmail.com",
+    "telefono": 22222,
+    "residuos": [],
+    "puntosEcologicos": 0
+  },
+  "999": {
+    "primerNombre": "Paco",
+    "segundoNombre": "Esteban",
+    "primerApellido": "Ayala",
+    "segundoApellido": "",
+    "identificacion": "999",
+    "contrasena": "teamoLis22!",
+    "direccion": "",
+    "correo": "davidstiventhgalvis@gmail.com",
+    "telefono": 3223232,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 12.5,
+        "fechaEntrega": "jun. 2, 2025"
+      }
+    ],
+    "puntosEcologicos": 125
   }
 }
