@@ -31,8 +31,11 @@ public class MenuUsuarioViewController implements Internacionalizable{
     @FXML private BorderPane contentPane;
     @FXML private ImageView logoImageView;
     @FXML private ComboBox<String> comboAccesibilidad;
+    @FXML private Button btnActualizarUsuario;
+    private MenuUsuarioViewController menuUsuarioViewController;
 
-    private ReciclajeControlador controlador;
+
+    private ReciclajeControlador controlador;   
 
     @FXML
     private void initialize() {
@@ -45,6 +48,8 @@ public class MenuUsuarioViewController implements Internacionalizable{
         btnListarResiduos.setOnAction(e -> mostrarListarResiduos());
         btnConsultarPuntos.setOnAction(e -> mostrarConsultarPuntos());
         btnGenerarReporte.setOnAction(e -> mostrarGenerarReporte());
+        btnActualizarUsuario.setOnAction(e -> mostrarActualizarUsuario());
+
 
         comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
         comboAccesibilidad.setValue("Normal");
@@ -101,7 +106,6 @@ public class MenuUsuarioViewController implements Internacionalizable{
             MenuUsuarioViewController controller = loader.getController();
             controller.setControlador(this.controlador);
     
-            // Reabrir la última opción seleccionada tras recargar el menú
             controller.ultimaOpcion = this.ultimaOpcion;
             controller.abrirUltimaOpcion();
     
@@ -148,15 +152,36 @@ public class MenuUsuarioViewController implements Internacionalizable{
 
     public void setControlador(ReciclajeControlador controlador) {
         this.controlador = controlador;
-        actualizarDatosUsuario();
+        if (controlador != null) {
+            lblNombreUsuario.setText(controlador.obtenerUsuarioActual().getNombreCompleto()); // O el método correcto
+        }
     }
+    
 
     private void actualizarDatosUsuario() {
         if (controlador != null) {
             lblNombreUsuario.setText(controlador.obtenerUsuarioPorNombre(""));
         }
     }
-
+    
+    public void mostrarMenuPrincipal() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/menu_usuario_view.fxml"),
+                AppContext.getBundle()
+            );
+            Parent menuRoot = loader.load();
+            MenuUsuarioViewController controller = loader.getController();
+            controller.setControlador(this.controlador); // <-- Mantiene el usuario y lógica
+            Stage stage = (Stage) contentPane.getScene().getWindow();
+            stage.getScene().setRoot(menuRoot);
+        } catch (IOException e) {
+            e.printStackTrace();
+            mostrarError("Error al cargar el menú principal");
+        }
+    }
+    
+    
     private void cerrarSesion() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(AppContext.getBundle().getString("login"));
@@ -311,5 +336,25 @@ public class MenuUsuarioViewController implements Internacionalizable{
             AccesibilidadViewController.aplicarEstilo(scene, opcion);
         }
     }
+    
+    private void mostrarActualizarUsuario() {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/co/edu/uptc/vista/actualizar_usuario_form.fxml"),
+                AppContext.getBundle()
+            );
+            VBox form = loader.load();
+            ActualizarUsuarioController formController = loader.getController();
+            if (formController == null) {
+                throw new IllegalStateException("El controlador de actualizar_usuario_form.fxml no fue inyectado. Verifica fx:controller en el FXML.");
+            }
+            formController.setControlador(this.controlador);
+            formController.setMenuUsuarioViewController(this); // <--- Agrega esto
+            contentPane.setCenter(form);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mostrarError("No se pudo cargar el formulario de actualización de usuario.");
+        }
+    }    
     
 }

@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Tooltip?>
 
 <BorderPane prefHeight="1024" prefWidth="1440"
             xmlns="http://javafx.com/javafx/17"
@@ -126,16 +127,29 @@
                   <Label text="%accessibility" styleClass="texto-volver"/>
                   <ComboBox fx:id="comboAccesibilidad" prefWidth="180" promptText="Accesibilidad" />
                   <ComboBox fx:id="comboIdioma" prefWidth="140" promptText="%language" />
+                  <Button fx:id="btnActualizarUsuario" styleClass="boton-circular">
+                        <graphic>
+                           <Label text="✎" styleClass="icono-cerrar"/>
+                        </graphic>
+                        <tooltip>
+                           <Tooltip text="Actualizar datos"/>
+                        </tooltip>
+                  </Button>
                </children>
             </HBox>
+            <!-- En el panel derecho (right) -->
             <BorderPane fx:id="contentPane" VBox.vgrow="ALWAYS" style="-fx-padding: 40 0 0 0;">
                <center>
                   <VBox alignment="CENTER" spacing="32">
-                     <children>
-                        <Label text="%welcome" styleClass="titulo"/>
-                        <Label fx:id="lblNombreUsuario" text="NOMBRE DE USUARIO" styleClass="bienvenida"/>
-                        <Label text="%selectOption" styleClass="subtitulo-logo"/>
-                     </children>
+                        <children>
+                           <Label text="%welcome" styleClass="titulo"/>
+                           <HBox alignment="CENTER" spacing="16">
+                              <children>
+                                    <Label fx:id="lblNombreUsuario" text="NOMBRE DE USUARIO" styleClass="bienvenida"/>
+                              </children>
+                           </HBox>
+                           <Label text="%selectOption" styleClass="subtitulo-logo"/>
+                        </children>
                   </VBox>
                </center>
             </BorderPane>

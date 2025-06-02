@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<VBox spacing="32" alignment="CENTER"
+      xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="co.edu.uptc.vista.ActualizarUsuarioController">
+    <children>
+        <GridPane hgap="24" vgap="16" alignment="CENTER">
+            <padding>
+                <Insets top="16" right="16" bottom="16" left="16"/>
+            </padding>
+            <!-- Primera columna -->
+            <children>
+                <TextField fx:id="txtPrimerNombre" promptText="Primer Nombre" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                <Button fx:id="btnEditarPrimerNombre" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+                
+                <TextField fx:id="txtPrimerApellido" promptText="Primer Apellido" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <Button fx:id="btnEditarPrimerApellido" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                
+                <TextField fx:id="txtTelefono" promptText="Teléfono" editable="false" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <Button fx:id="btnEditarTelefono" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+                
+                <!-- Segunda columna -->
+                <TextField fx:id="txtSegundoNombre" promptText="Segundo Nombre" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+                <Button fx:id="btnEditarSegundoNombre" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+                
+                <TextField fx:id="txtSegundoApellido" promptText="Segundo Apellido" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                <Button fx:id="btnEditarSegundoApellido" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+                
+                <TextField fx:id="txtCorreo" promptText="Correo" editable="false" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+                <Button fx:id="btnEditarCorreo" text="✏️" prefWidth="50" prefHeight="40" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+            </children>
+        </GridPane>
+        <HBox spacing="16" alignment="CENTER">
+            <Button fx:id="btnGuardar" text="Guardar" styleClass="boton-principal-cuadrado"/>
+            <Button fx:id="btnVolver" text="Volver" styleClass="boton-principal-cuadrado"/>
+        </HBox>
+    </children>
+</VBox>

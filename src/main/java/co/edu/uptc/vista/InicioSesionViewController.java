@@ -166,8 +166,8 @@ public class InicioSesionViewController {
             );
             Parent root = loader.load();
             MenuUsuarioViewController menuController = loader.getController();
-            menuController.setControlador(controlador);
-
+            menuController.setControlador(controlador); // <-- ESTA LÍNEA ES CLAVE
+    
             Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("welcome"));
@@ -177,6 +177,7 @@ public class InicioSesionViewController {
             mostrarError("Error", "No se pudo cargar el menú de usuario");
         }
     }
+    
 
     private void volverInicio() {
         try {
