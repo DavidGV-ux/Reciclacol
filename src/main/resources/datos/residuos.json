@@ -103,11 +103,11 @@
     ],
     "puntosEcologicos": 10000
   },
-  "1054282604": {
+  "12345678900": {
     "primerNombre": "Bambi",
     "primerApellido": "Mendivelso",
-    "identificacion": "1054282604",
-    "contrasena": "teamoGomita33!",
+    "identificacion": "12345678900",
+    "contrasena": "teamoLis33!",
     "direccion": "",
     "correo": "mia007332@gmail.com",
     "telefono": 122222,
@@ -213,5 +213,39 @@
       }
     ],
     "puntosEcologicos": 125
+  },
+  "1002559434": {
+    "primerNombre": "Alejandra",
+    "segundoNombre": "David Sexy",
+    "primerApellido": "Mendivelso",
+    "segundoApellido": "Galvis",
+    "identificacion": "0987654321",
+    "contrasena": "teamoLis33!",
+    "direccion": "",
+    "correo": "maxiteamo@gmail.com",
+    "telefono": 302744908,
+    "residuos": [
+      {
+        "tipoMaterial": "Plástico",
+        "peso": 5.0,
+        "fechaEntrega": "jun. 2, 2025"
+      },
+      {
+        "tipoMaterial": "Vidrio",
+        "peso": 1.0,
+        "fechaEntrega": "jun. 2, 2025"
+      },
+      {
+        "tipoMaterial": "Cartón",
+        "peso": 5.0,
+        "fechaEntrega": "jun. 2, 2025"
+      },
+      {
+        "tipoMaterial": "Metal",
+        "peso": 111.0,
+        "fechaEntrega": "jun. 2, 2025"
+      }
+    ],
+    "puntosEcologicos": 1220
   }
 }

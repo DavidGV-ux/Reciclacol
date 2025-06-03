@@ -205,6 +205,9 @@ private void cerrarSesionYVolverInicio() {
             AppContext.getBundle()
         );
         Parent root = loader.load();
+        InicioViewController inicioController = loader.getController();
+        inicioController.setControlador(AppContext.getReciclajeControlador());
+        inicioController.setHostServices(this.hostServices); 
         Stage stage = (Stage) btnInicio.getScene().getWindow();
         stage.setScene(new Scene(root, 1440, 1024));
         stage.setTitle(AppContext.getBundle().getString("welcome"));

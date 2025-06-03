@@ -302,6 +302,7 @@ public class RegistroViewController {
             InicioViewController inicioController = loader.getController();
             inicioController.setControlador(controlador);
             inicioController.setHostServices(this.hostServices);
+
             Stage stage = (Stage) btnInicio.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("welcome"));
@@ -386,7 +387,7 @@ public class RegistroViewController {
             InicioSesionViewController inicioSesionController = loader.getController();
             inicioSesionController.setControlador(controlador);
             inicioSesionController.setHostServices(this.hostServices);
-
+            
             Stage stage = (Stage) linkLogin.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("register"));

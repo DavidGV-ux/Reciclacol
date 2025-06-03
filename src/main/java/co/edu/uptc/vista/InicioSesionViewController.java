@@ -116,6 +116,7 @@ public class InicioSesionViewController {
             RegistroViewController registroController = loader.getController();
             registroController.setControlador(controlador);
             registroController.setHostServices(this.hostServices);
+            
             Stage stage = (Stage) linkRegistrarse.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("register"));
