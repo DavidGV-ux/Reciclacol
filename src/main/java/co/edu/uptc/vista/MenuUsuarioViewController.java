@@ -1,9 +1,12 @@
 package co.edu.uptc.vista;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -37,6 +40,7 @@ public class MenuUsuarioViewController implements Internacionalizable{
 
 
     private ReciclajeControlador controlador;   
+    private HostServices hostServices;
 
     @FXML
     private void initialize() {
@@ -44,7 +48,6 @@ public class MenuUsuarioViewController implements Internacionalizable{
         cargarLogo();
 
         btnInicio.setOnAction(e -> confirmarCerrarSesion());
-        btnAyuda.setOnAction(e -> mostrarAyuda());
         btnRegistrarResiduos.setOnAction(e -> mostrarRegistrarResiduos());
         btnListarResiduos.setOnAction(e -> mostrarListarResiduos());
         btnConsultarPuntos.setOnAction(e -> mostrarConsultarPuntos());
@@ -361,4 +364,66 @@ private void cerrarSesionYVolverInicio() {
         }
     }    
     
+    @FXML
+    private void handleAyuda() {
+        try {
+            Path tempDir = Files.createTempDirectory("ayuda_menu_usuario");
+            Path htmlFile = tempDir.resolve("MenuUsuario.html");
+            try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/MenuUsuario/MenuUsuario.html")) {
+                if (in == null) {
+                    mostrarError("No se encontró el recurso HTML de ayuda.");
+                    return;
+                }
+                Files.copy(in, htmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+    
+            try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/MenuUsuario/MenuUsuario.css")) {
+                if (in != null) {
+                    Files.copy(in, tempDir.resolve("MenuUsuario.css"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+    
+            String[] imagenes = {
+                "AccesibilidadeIdioma.png",
+                "ActualizarDatos.png",
+                "CerrarListaPuntos.png",
+                "CerrarListaResiduos.png",
+                "ConsultarPuntosPermiteVerLosPuntosPorTipoDeMaterialYFechaDelUltimoAgregadoDeCadaUno.png",
+                "GenerarReportePermiteGenerarUnPDFConLasEstadisticasPersonalesYgrupalesEnreciclajeGuardarloenElPcYunaVistaPrevia.png",
+                "GuardarActualizacionDatos.png",
+                "GuardarLosResiduosAAgregar.png",
+                "ListarResiduosPermiteListarLosResiduosCantidadenKgyLaFechaEnqueseagrego.png",
+                "MinimizarOCerrar.png",
+                "RegistrarResiduosPermiteAgregarResiduosYmodificaroeliminarselecciones.png",
+                "SeleccionarLapizParaEditarDatoDeCasilla.png",
+                "VistaGeneralMenuUsuario.png",
+                "VolverAlInicioYCerrarSesion.png",
+                "VolverMenuInicial.png"
+            };
+            for (String img : imagenes) {
+                try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/MenuUsuario/" + img)) {
+                    if (in != null) {
+                        Files.copy(in, tempDir.resolve(img), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
+            }
+    
+            if (hostServices != null) {
+                hostServices.showDocument(htmlFile.toUri().toString());
+            } else {
+                mostrarError("No se pudo obtener HostServices para abrir el navegador.");
+            }
+    
+            htmlFile.toFile().deleteOnExit();
+            tempDir.toFile().deleteOnExit();
+    
+        } catch (Exception e) {
+            mostrarError("No se pudo abrir la ayuda en el navegador: " + e.getMessage());
+        }
+    }
+    
+
+public void setHostServices(HostServices hostServices) {
+    this.hostServices = hostServices;
+}
 }

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.PasswordField?>
 
 <BorderPane prefHeight="580" prefWidth="1000"
             xmlns="http://javafx.com/javafx/17"
@@ -32,14 +33,12 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
             <HBox alignment="TOP_LEFT" spacing="10">
-                 <VBox alignment="CENTER">
                 <Button fx:id="btnInicio" styleClass="boton-circular">
                     <graphic>
-                        <Label text="🏠" styleClass="icono-cerrar"/>
+                        <Label text="✖" styleClass="icono-cerrar"/>
                     </graphic>
                 </Button>
                 <Label text="%home" styleClass="texto-volver"/>
-            </VBox>
             </HBox>
         </VBox>
     </left>
@@ -70,8 +69,10 @@
             </VBox>
             
             <!-- Panel Nueva Contraseña -->
+            <!-- Panel Nueva Contraseña -->
             <VBox spacing="8">
                 <HBox fx:id="panelNuevaContrasena" spacing="16" alignment="CENTER_LEFT" visible="false">
+                    <Label fx:id="lblPasswordHelp" text="?" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #388e3c; -fx-cursor: hand;" />
                     <Label text="%newPasswordLabel" minWidth="260" prefWidth="260" style="-fx-font-size: 18px;"/>
                     <PasswordField fx:id="txtNuevaContrasena" prefWidth="300" styleClass="campo-texto"/>
                 </HBox>
@@ -82,7 +83,7 @@
                 </HBox>
                 <Label fx:id="lblMensajeContrasena" style="-fx-font-size: 16px;"/>
             </VBox>
-            
+
             <Button fx:id="btnGuardar" text="%save" minWidth="120" styleClass="boton-principal" visible="false"/>
         </VBox>
     </center>

@@ -14,7 +14,6 @@ module co.edu.uptc {
 
 
 
-
     opens co.edu.uptc to javafx.fxml;
     opens co.edu.uptc.vista to javafx.fxml;
     opens co.edu.uptc.modelo to com.google.gson;

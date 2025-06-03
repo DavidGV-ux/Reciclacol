@@ -107,9 +107,7 @@
             <Region VBox.vgrow="ALWAYS" />
             <HBox alignment="BOTTOM_LEFT">
                <children>
-                  <Button fx:id="btnAyuda"
-                          styleClass="boton-verde"
-                          text="%help" />
+                     <Button fx:id="btnAyuda" onAction="#handleAyuda" text="%help" styleClass="boton-verde"/>
                </children>
             </HBox>
          </children>

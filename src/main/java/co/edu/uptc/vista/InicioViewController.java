@@ -1,6 +1,8 @@
 package co.edu.uptc.vista;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
 import javafx.fxml.FXML;
@@ -15,8 +17,11 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.application.HostServices;
 import javafx.util.Duration;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
+
 
 
 public class InicioViewController {
@@ -34,6 +39,7 @@ public class InicioViewController {
     private ReciclajeControlador controlador;
     private Timeline timeline;
     private int indiceActual = 0;
+    private HostServices hostServices;
     
     private final java.util.List<String> datosCuriosos = java.util.Arrays.asList(
         "¿Sabías que reciclar una lata de aluminio ahorra energía para 3 horas de TV?",
@@ -134,6 +140,7 @@ public class InicioViewController {
             Parent root = loader.load();
             InicioSesionViewController loginController = loader.getController();
             loginController.setControlador(controlador);
+            loginController.setHostServices(this.hostServices);
 
             Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
@@ -153,6 +160,7 @@ public class InicioViewController {
             Parent root = loader.load();
             RegistroViewController registroController = loader.getController();
             registroController.setControlador(controlador);
+            registroController.setHostServices(this.hostServices);
 
             Stage stage = (Stage) btnRegistro.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
@@ -195,5 +203,71 @@ public class InicioViewController {
             alert.setContentText(licencia + "\n\n" + contacto);
             alert.showAndWait();
         }
+
+        @FXML
+        private void handleAyuda() {
+            try {
+                // 1. Crear un directorio temporal para la ayuda
+                Path tempDir = Files.createTempDirectory("ayuda_inicio");
+                // 2. Copiar el archivo HTML principal
+                Path htmlFile = tempDir.resolve("Inicio.html");
+                try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Inicio/Inicio.html")) {
+                    if (in == null) {
+                        mostrarError("No se encontró el archivo de ayuda", "No se encontró el recurso HTML.");
+                        return;
+                    }
+                    Files.copy(in, htmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+        
+                // 3. Copiar el CSS
+                try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Inicio/inicio.css")) {
+                    if (in != null) {
+                        Files.copy(in, tempDir.resolve("inicio.css"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
+        
+                // 4. Copiar todas las imágenes que usa el tutorial
+                String[] imagenes = {
+                    "Accesibilidad.png",
+                    "AcercaDe.png",
+                    "Cerrar.png",
+                    "DatosCuriosos.png",
+                    "Idioma.png",
+                    "Inicio.png",
+                    "InicioGeneral.png",
+                    "InicioUsuario.png",
+                    "Minimizar.png",
+                    "Registro.png",
+                    "RegistroUsuario.png"
+                };
+                for (String img : imagenes) {
+                    try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Inicio/" + img)) {
+                        if (in != null) {
+                            Files.copy(in, tempDir.resolve(img), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                        }
+                    }
+                }
+        
+                // 5. Abrir el archivo HTML en el navegador usando HostServices
+                if (hostServices != null) {
+                    hostServices.showDocument(htmlFile.toUri().toString());
+                } else {
+                    mostrarError("Error", "No se pudo obtener HostServices para abrir el navegador.");
+                }
+        
+                // 6. Opcional: marcar archivos temporales para borrar al salir
+                htmlFile.toFile().deleteOnExit();
+                tempDir.toFile().deleteOnExit();
+        
+            } catch (Exception e) {
+                mostrarError("No se pudo abrir la ayuda en el navegador", e.getMessage());
+            }
+        }
+        
+public void setHostServices(HostServices hostServices) {
+    this.hostServices = hostServices;
+}
+
+
     }
 

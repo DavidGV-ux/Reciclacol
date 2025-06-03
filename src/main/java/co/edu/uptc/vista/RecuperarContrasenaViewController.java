@@ -12,11 +12,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+
 
 public class RecuperarContrasenaViewController {
 
@@ -35,13 +38,19 @@ public class RecuperarContrasenaViewController {
     @FXML private HBox panelEnviarCodigo;
     @FXML private HBox panelValidarCodigo;
     @FXML private ComboBox<String> comboIdioma;
+    @FXML private Label lblErrorContrasena;
+    @FXML private Label lblErrorConfirmarContrasena;
+    @FXML private PasswordField pfContrasena;
+    @FXML private PasswordField pfConfirmarContrasena;
+    @FXML private Label lblPasswordHelp;
+
+    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     private ReciclajeControlador controlador;
     private EmailService emailService;
     private String identificacionActual;
     private String correoActual;
     private ResourceBundle bundle;
-    private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
     @FXML
     private void initialize() {
@@ -69,6 +78,10 @@ public class RecuperarContrasenaViewController {
                 }
             });
         }
+
+          String passwordTooltip = AppContext.getBundle().getString("password.tooltip");
+        Tooltip tooltip = new Tooltip(passwordTooltip);
+        Tooltip.install(lblPasswordHelp, tooltip);
     }
 
     public void setControlador(ReciclajeControlador controlador) {
@@ -102,14 +115,6 @@ public class RecuperarContrasenaViewController {
     private void validarCodigo() {
         limpiarMensajes();
         String codigo = txtCodigo.getText().trim();
-
-        // Validación: ¿Hay correo asociado?
-        if (correoActual == null || correoActual.isEmpty()) {
-            mostrarMensajeEnvio(bundle.containsKey("noCodeSent") ? bundle.getString("noCodeSent") : 
-                "Primero debe solicitar el envío de un código.", true);
-            return;
-        }
-
         if (codigo.isEmpty()) {
             mostrarMensajeEnvio(bundle.getString("enterCode"), true);
             return;
@@ -129,28 +134,51 @@ public class RecuperarContrasenaViewController {
 
     private void guardarNuevaContrasena() {
         limpiarMensajes();
+        boolean valido = true;
         String nuevaContrasena = txtNuevaContrasena.getText();
         String confirmarContrasena = txtConfirmarContrasena.getText();
-
+    
+        // Validar campos vacíos
         if (nuevaContrasena.isEmpty() || confirmarContrasena.isEmpty()) {
             mostrarMensajeContrasena(bundle.getString("fillPasswords"), true);
             return;
         }
-
+    
+        // Validar formato de la contraseña
+        if (!nuevaContrasena.matches(PASSWORD_REGEX)) {
+            marcarError(txtNuevaContrasena, lblMensajeContrasena, bundle.getString("passwordInvalid"));
+            valido = false;
+        }
+    
+        // Validar coincidencia de contraseñas
         if (!nuevaContrasena.equals(confirmarContrasena)) {
             mostrarMensajeContrasena(bundle.getString("passwordsDontMatch"), true);
             return;
         }
-
+    
+        if (!valido) {
+            return;
+        }
+    
+        // Actualizar la contraseña
         actualizarContrasena(identificacionActual, nuevaContrasena);
         mostrarMensajeContrasena(bundle.getString("passwordChanged"), false);
-
+    
         // Oculta el mensaje y vuelve al inicio después de 2 segundos
         new Thread(() -> {
             try { Thread.sleep(2000); } catch (InterruptedException ignored) {}
             javafx.application.Platform.runLater(this::volverAInicioSesion);
         }).start();
     }
+
+    private void marcarError(Control control, Label label, String mensaje) {
+        if (!control.getStyleClass().contains("campo-invalido")) {
+            control.getStyleClass().add("campo-invalido");
+        }
+        label.setText(mensaje);
+        label.setVisible(true);
+    }
+
 
     private void actualizarContrasena(String id, String nuevaContrasena) {
         var usuario = controlador.obtenerUsuario(id);
@@ -233,6 +261,4 @@ public class RecuperarContrasenaViewController {
         }
         return "***" + dominio;
     }
-
-    
 }

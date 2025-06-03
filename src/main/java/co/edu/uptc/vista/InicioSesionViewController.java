@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
 import co.edu.uptc.servicio.CredencialesRecordadas;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,6 +22,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import javafx.application.HostServices;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
@@ -39,10 +44,11 @@ public class InicioSesionViewController {
     @FXML private ComboBox<String> comboAccesibilidad;
     @FXML private Hyperlink linkRegistrarse;
     @FXML private CheckBox chkRecordar;
+    
 
     private static final String RECORDAR_PATH = "proyecto_final_fx/src/main/resources/datos/recordar.json";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
+    private HostServices hostServices;
 
     private ReciclajeControlador controlador;
 
@@ -57,7 +63,6 @@ public class InicioSesionViewController {
         }
 
         linkOlvidasteContrasena.setOnAction(e -> mostrarRecuperarContrasena());
-        btnAyuda.setOnAction(e -> mostrarAlertaNoImplementado("Ayuda"));
         btnIniciarSesion.setOnAction(e -> iniciarSesion());
         btnVolver.setOnAction(e -> volverInicio());
         linkRegistrarse.setOnAction(e -> irARegistro());
@@ -110,7 +115,7 @@ public class InicioSesionViewController {
             Parent root = loader.load();
             RegistroViewController registroController = loader.getController();
             registroController.setControlador(controlador);
-    
+            registroController.setHostServices(this.hostServices);
             Stage stage = (Stage) linkRegistrarse.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("register"));
@@ -131,6 +136,7 @@ public class InicioSesionViewController {
             Parent root = loader.load();
             InicioSesionViewController controller = loader.getController();
             controller.setControlador(this.controlador);
+            controller.setHostServices(this.hostServices);
             stage.setScene(new Scene(root, 1440, 1024));
         } catch (IOException e) {
             mostrarError("Error", "No se pudo actualizar el idioma: " + e.getMessage());
@@ -224,7 +230,8 @@ public class InicioSesionViewController {
             Parent root = loader.load();
             MenuUsuarioViewController menuController = loader.getController();
             menuController.setControlador(controlador); // <-- ESTA LÍNEA ES CLAVE
-    
+            menuController.setHostServices(this.hostServices);
+
             Stage stage = (Stage) btnIniciarSesion.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("welcome"));
@@ -245,7 +252,7 @@ public class InicioSesionViewController {
             Parent root = loader.load();
             InicioViewController inicioController = loader.getController();
             inicioController.setControlador(AppContext.getReciclajeControlador());
-            
+            inicioController.setHostServices(this.hostServices);
     
             Stage stage = (Stage) btnVolver.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
@@ -337,4 +344,72 @@ private void cargarDatosRecordar() {
         }
     }
 }
+
+@FXML
+private void handleAyuda() {
+    try {
+        // 1. Crear un directorio temporal para la ayuda
+        Path tempDir = Files.createTempDirectory("ayuda_inicio_sesion");
+        // 2. Copiar el archivo HTML principal
+        Path htmlFile = tempDir.resolve("InicioSesion.html");
+        try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/InicioSesion/InicioSesion.html")) {
+            if (in == null) {
+                mostrarError("No se encontró el archivo de ayuda", "No se encontró el recurso HTML.");
+                return;
+            }
+            Files.copy(in, htmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+        }
+
+        // 3. Copiar el CSS
+        try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/InicioSesion/InicioSesion.css")) {
+            if (in != null) {
+                Files.copy(in, tempDir.resolve("InicioSesion.css"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+        }
+
+        // 4. Copiar todas las imágenes que usa el tutorial
+        String[] imagenes = {
+            "Accesibilidad e idioma.png",
+            "cerrar o minimizar.png",
+            "CodigoRecibido.png",
+            "Credenciales_NumeroDocumento_Contrasena.png",
+            "IngresaNumeroDocumentoParaEnviarCodigoAcorreoEnlazado.png",
+            "Ingresar_paravalidaryentrar.png",
+            "NoTehasregistrado_hazlo_hipervinculo.png",
+            "OlvidoContarsena.png",
+            "RecordarDatos.png",
+            "SeleccionarIdioma.png",
+            "VistaGeneralClave.png",
+            "VistaGeneral.png",
+            "VolverPantallaDeInicio.png"
+        };
+        for (String img : imagenes) {
+            try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/InicioSesion/" + img)) {
+                if (in != null) {
+                    Files.copy(in, tempDir.resolve(img), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+        }
+
+        // 5. Abrir el archivo HTML en el navegador usando HostServices
+        if (hostServices != null) {
+            hostServices.showDocument(htmlFile.toUri().toString());
+        } else {
+            mostrarError("Error", "No se pudo obtener HostServices para abrir el navegador.");
+        }
+
+        // 6. Opcional: marcar archivos temporales para borrar al salir
+        htmlFile.toFile().deleteOnExit();
+        tempDir.toFile().deleteOnExit();
+
+    } catch (Exception e) {
+        mostrarError("No se pudo abrir la ayuda en el navegador", e.getMessage());
+    }
+}
+
+public void setHostServices(HostServices hostServices) {
+    this.hostServices = hostServices;
+}
+
+
 }

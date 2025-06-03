@@ -29,6 +29,7 @@ public class App extends Application {
         // Obtener el controlador y pasarle el ReciclajeControlador
         InicioViewController inicioController = loader.getController();
         inicioController.setControlador(controlador);
+        inicioController.setHostServices(getHostServices());
         
         // Configurar y mostrar la escena
         Scene scene = new Scene(root, 1440, 1024);

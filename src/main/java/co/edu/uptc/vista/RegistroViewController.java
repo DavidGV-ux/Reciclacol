@@ -1,8 +1,11 @@
 package co.edu.uptc.vista;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import co.edu.uptc.controlador.ReciclajeControlador;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,6 +71,7 @@ public class RegistroViewController {
     private ReciclajeControlador controlador;
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+    private HostServices hostServices;
 
     @FXML
     private void initialize() {
@@ -79,7 +83,6 @@ public class RegistroViewController {
 
         btnRegistrar.setOnAction(e -> registrarUsuario());
         btnInicio.setOnAction(e -> volverInicio());
-        btnAyuda.setOnAction(e -> mostrarAyuda());
         linkLogin.setOnAction(e -> irALogin());
 
         comboAccesibilidad.getItems().addAll("Normal", "Alto Contraste", "Letra Grande");
@@ -140,6 +143,7 @@ public class RegistroViewController {
             Parent root = loader.load();
             RegistroViewController controller = loader.getController();
             controller.setControlador(this.controlador);
+            controller.setHostServices(this.hostServices);
             stage.setScene(new Scene(root, 1440, 1024));
         } catch (IOException e) {
             mostrarError("Error", "No se pudo actualizar el idioma: " + e.getMessage());
@@ -297,7 +301,7 @@ public class RegistroViewController {
 
             InicioViewController inicioController = loader.getController();
             inicioController.setControlador(controlador);
-
+            inicioController.setHostServices(this.hostServices);
             Stage stage = (Stage) btnInicio.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("welcome"));
@@ -381,7 +385,8 @@ public class RegistroViewController {
             Parent root = loader.load();
             InicioSesionViewController inicioSesionController = loader.getController();
             inicioSesionController.setControlador(controlador);
-    
+            inicioSesionController.setHostServices(this.hostServices);
+
             Stage stage = (Stage) linkLogin.getScene().getWindow();
             stage.setScene(new Scene(root, 1440, 1024));
             stage.setTitle(AppContext.getBundle().getString("register"));
@@ -391,4 +396,65 @@ public class RegistroViewController {
             mostrarError("Error", "No se pudo cargar la vista de registro");
         }
     }
+
+    @FXML
+    private void handleAyuda() {
+        try {
+            // 1. Crear un directorio temporal para la ayuda
+            Path tempDir = Files.createTempDirectory("ayuda_registro");
+            // 2. Copiar el archivo HTML principal
+            Path htmlFile = tempDir.resolve("Registro.html");
+            try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Registro/Registro.html")) {
+                if (in == null) {
+                    mostrarError("No se encontró el archivo de ayuda", "No se encontró el recurso HTML.");
+                    return;
+                }
+                Files.copy(in, htmlFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+            }
+    
+            // 3. Copiar el CSS
+            try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Registro/Registro.css")) {
+                if (in != null) {
+                    Files.copy(in, tempDir.resolve("Registro.css"), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                }
+            }
+    
+            // 4. Copiar todas las imágenes que usa el tutorial
+            String[] imagenes = {
+                "AccesibilidadeIdioma.png",
+                "AceptarTerminosYcondiciones.png",
+                "BotónRegistroParaValidarYRegistrarUsuario.png",
+                "IngresoDatosPersonales.png",
+                "MinimizaryCerrar.png",
+                "RequerimientosContrasena.png",
+                "VolverPantallaDeInicio.png",
+                "YaTienesUsuario_ingresaAquí.png"
+            };
+            for (String img : imagenes) {
+                try (var in = getClass().getResourceAsStream("/co/edu/uptc/Ayuda/Registro/" + img)) {
+                    if (in != null) {
+                        Files.copy(in, tempDir.resolve(img), java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                    }
+                }
+            }
+    
+            // 5. Abrir el archivo HTML en el navegador usando HostServices
+            if (hostServices != null) {
+                hostServices.showDocument(htmlFile.toUri().toString());
+            } else {
+                mostrarError("Error", "No se pudo obtener HostServices para abrir el navegador.");
+            }
+    
+            // 6. Opcional: marcar archivos temporales para borrar al salir
+            htmlFile.toFile().deleteOnExit();
+            tempDir.toFile().deleteOnExit();
+    
+        } catch (Exception e) {
+            mostrarError("No se pudo abrir la ayuda en el navegador", e.getMessage());
+        }
+    }    
+
+public void setHostServices(HostServices hostServices) {
+    this.hostServices = hostServices;
+}
 }

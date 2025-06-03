@@ -111,12 +111,12 @@
                <HBox alignment="BOTTOM_LEFT" spacing="0">
                   <children>
                      <VBox alignment="CENTER">
-                           <Button fx:id="btnAyuda" styleClass="boton-circular">
-                                 <graphic>
-                                    <Label text="❓" styleClass="icono-cerrar"/>
-                                 </graphic>
-                           </Button>
-                           <Label text="%help" styleClass="texto-volver"/>
+                        <Button fx:id="btnAyuda" styleClass="boton-circular" onAction="#handleAyuda">
+                              <graphic>
+                                 <Label text="❓" styleClass="icono-cerrar"/>
+                              </graphic>
+                        </Button>
+                                          <Label text="%help" styleClass="texto-volver"/>
                      </VBox>
                   </children>
                </HBox>
