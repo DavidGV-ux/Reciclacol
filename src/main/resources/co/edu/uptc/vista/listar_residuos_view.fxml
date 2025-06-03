@@ -18,10 +18,12 @@
       style="-fx-background-color: white;">
     <padding>
         <Insets top="40" right="80" bottom="40" left="80"/>
-    </padding>
-
-    <Label fx:id="lblTitulo" text="%listWasteTitle"
-           style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
+       </padding>
+          <Label fx:id="lblTitulo"
+              text="%listWasteTitle"
+              wrapText="true"
+              maxWidth="500"
+              style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <TableView fx:id="tablaResiduos"
                prefHeight="540"

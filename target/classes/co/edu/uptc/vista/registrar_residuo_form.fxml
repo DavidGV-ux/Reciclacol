@@ -21,14 +21,16 @@
     </padding>
 
     <Label fx:id="lblTitulo" text="%wasteWelcome"
-           style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
+       wrapText="true"
+       maxWidth="600"
+       style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: #388e3c;"/>
 
     <HBox spacing="48" alignment="CENTER">
         <VBox spacing="24">
             <HBox spacing="18" alignment="CENTER_LEFT">
                 <Label fx:id="lblMaterial" text="%materialType" minWidth="160" style="-fx-font-size: 20px;"/>
                 <ComboBox fx:id="comboTipoMaterial" promptText="%selectMaterial"
-                          prefWidth="220" style="-fx-font-size: 18px;"/>
+                          prefWidth="220" style="-fx-font-size: 14px;"/>
             </HBox>
             <HBox spacing="18" alignment="CENTER_LEFT">
                 <Label fx:id="lblPeso" text="%weight" minWidth="160" style="-fx-font-size: 20px;"/>
